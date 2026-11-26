@@ -1,0 +1,2863 @@
+Bu chatda .html faylni to‘g‘ridan-to‘g‘ri yuklab olinadigan tugma ko‘rinishida biriktirib bo‘lmaydi, shuning uchun tayyor index.html kodini pastga qo‘ydim. Telefoningizda uni GitHub’ga joylashning 2 ta eng oson yo‘li bor:
+1-usul: Fayl saqlamasdan to‘g‘ridan-to‘g‘ri GitHub’ga joylash (eng osoni)
+ * Pastdagi kod oynasining yuqori o‘ng burchagidagi Nusxalash (❐) belgisini bosing.
+ * GitHub’dagi hozirgi sahifada pastki o‘ngdagi qizil Cancel tugmasini bosing.
+ * Qaytgan sahifada ko‘k rangli creating a new file yozuvini bosing.
+ * Yuqoridagi Name your file... katagiga index.html deb yozing, pastdagi katta oynaga nusxalangan kodni Paste qiling va yashil Commit changes... tugmasini bosing.
+2-usul: Telefonga index.html fayl qilib saqlab yuklash
+ * Pastdagi kodni Nusxalash (❐) tugmasi bilan ko‘chirib oling.
+ * Play Market’dan bepul QuickEdit (yoki Acode) ilovasini oching, kodni Paste qiling va index.html nomi bilan saqlang.
+ * GitHub’dagi choose your files yozuvini bosib, o‘sha saqlangan index.html faylini tanlang va yashil Commit changes tugmasini bosing.
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="google-site-verification" content="DiQgMfo7h2U4rSrdQozxHPYf_dRG3BbSZP8WYLB7DrQ" />
+
+  <title>Yo‘lakay Yuk — O‘zbekiston bo‘ylab yo‘lakay yuk va tezkor posilka xizmati</title>
+  <meta name="description" content="Yo‘lakay Yuk — Toshkent, Navoiy, Samarqand, Buxoro, Farg‘ona, Andijon, Namangan, Xorazm va O‘zbekistonning barcha viloyatlari bo‘ylab arzon yo‘lakay yuk tashish va tezkor posilka yuborish platformasi." />
+  <meta name="keywords" content="yo'lakay yuk, yolakay yuk, yolyolakayyuk, o'zbekiston yuk tashish, posilka yuborish, yuk topish, yuk berish, попутный груз узбекистан, toshkent navoiy yuk, samarqand buxoro posilka, farg'ona toshkent yuk" />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Yo‘lakay Yuk" />
+  <link rel="canonical" href="https://yolyolakayyuk.uz/" />
+
+  <!-- Open Graph / Telegram Preview -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Yo‘lakay Yuk" />
+  <meta property="og:title" content="Yo‘lakay Yuk — O‘zbekiston bo‘ylab yo‘lakay yuk va posilka xizmati" />
+  <meta property="og:description" content="Yukingizni bepul joylang yoki 3 kun bepul sinov va 20 000 so‘mlik oylik obuna bilan yo‘l-yo‘lakay yuk oling." />
+  <meta property="og:url" content="https://yolyolakayyuk.uz/" />
+
+  <!-- PWA App Manifest & Theme -->
+  <meta name="theme-color" content="#0b1120" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Yo‘lakay Yuk" />
+  <link rel="manifest" href='data:application/manifest+json,{"name":"Yo%E2%80%98lakay%20Yuk","short_name":"Yo%E2%80%98lakay%20Yuk","start_url":".","display":"standalone","background_color":"#0b1120","theme_color":"#10b981","description":"O%E2%80%98zbekiston%20bo%E2%80%98ylab%20yo%E2%80%98lakay%20yuk%20va%20posilka%20xizmati"}' />
+
+  <!-- Leaflet Interactive Map (Free OpenStreetMap) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+
+  <!-- Structured Data for Google Search -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Yo‘lakay Yuk",
+    "alternateName": ["Yolakay Yuk", "Yolyolakayyuk", "Yo'lakay Yuk O'zbekiston"],
+    "url": "https://yolyolakayyuk.uz/",
+    "description": "O‘zbekiston bo‘ylab yo‘lakay yuk tashish va tezkor posilka yetkazib berish onlayn platformasi."
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg: #0b1120;
+      --surface: #111827;
+      --card: #172033;
+      --card-2: #1e293b;
+      --border: #28354d;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --green: #10b981;
+      --green-dark: #059669;
+      --amber: #f59e0b;
+      --blue: #3b82f6;
+      --red: #ef4444;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding-bottom: 84px;
+      line-height: 1.45;
+    }
+
+    .container {
+      max-width: 560px;
+      margin: 0 auto;
+      padding: 0 14px;
+    }
+
+    /* HEADER */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(11, 17, 32, 0.94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 10px 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .brand-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 11px;
+      background: linear-gradient(135deg, #10b981, #059669);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+      flex-shrink: 0;
+    }
+
+    .brand-name {
+      font-weight: 800;
+      font-size: 16px;
+      line-height: 1.15;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      background: rgba(245, 158, 11, 0.12);
+      color: #fcd34d;
+      white-space: nowrap;
+    }
+
+    .status-pill.live {
+      border-color: rgba(16, 185, 129, 0.4);
+      background: rgba(16, 185, 129, 0.14);
+      color: #6ee7b7;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--amber);
+    }
+
+    .status-pill.live .dot {
+      background: var(--green);
+      box-shadow: 0 0 8px var(--green);
+    }
+
+    .sub-pill {
+      background: rgba(16, 185, 129, 0.14);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      color: #6ee7b7;
+      padding: 6px 11px;
+      border-radius: 999px;
+      font-size: 11.5px;
+      font-weight: 800;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .sub-pill.expired {
+      background: rgba(239, 68, 68, 0.15);
+      border-color: rgba(239, 68, 68, 0.45);
+      color: #fca5a5;
+    }
+
+    .sub-pill.sender-free {
+      background: rgba(59, 130, 246, 0.15);
+      border-color: rgba(59, 130, 246, 0.42);
+      color: #93c5fd;
+    }
+
+    /* USER ROLE BAR */
+    .role-bar {
+      background: rgba(16, 185, 129, 0.1);
+      border-bottom: 1px solid rgba(16, 185, 129, 0.22);
+      padding: 7px 0;
+      font-size: 12px;
+      display: none;
+    }
+
+    .role-bar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .role-switch-btn {
+      background: var(--green);
+      color: #042116;
+      border: none;
+      border-radius: 8px;
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 800;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    /* HERO */
+    .hero {
+      padding: 18px 0 14px;
+    }
+
+    .hero h1 {
+      font-size: 22px;
+      font-weight: 900;
+      line-height: 1.25;
+      margin-bottom: 6px;
+    }
+
+    .hero h1 span {
+      color: var(--green);
+    }
+
+    .hero p {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .install-banner {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      background: rgba(59, 130, 246, 0.14);
+      border: 1px solid rgba(59, 130, 246, 0.4);
+      border-radius: 14px;
+      padding: 10px 13px;
+      margin-bottom: 12px;
+      font-size: 12px;
+    }
+
+    /* CARDS & FORMS */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 16px;
+      margin-bottom: 14px;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 5px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 11px 13px;
+      border-radius: 11px;
+      font-size: 14px;
+      margin-bottom: 12px;
+      outline: none;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--green);
+    }
+
+    textarea {
+      min-height: 72px;
+      resize: vertical;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 800;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.1s;
+      text-decoration: none;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn-full {
+      width: 100%;
+    }
+
+    .btn-green {
+      background: var(--green);
+      color: #042116;
+    }
+
+    .btn-blue {
+      background: var(--blue);
+      color: #fff;
+    }
+
+    .btn-dark {
+      background: var(--card-2);
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .btn-amber {
+      background: rgba(245, 158, 11, 0.16);
+      border: 1px solid rgba(245, 158, 11, 0.42);
+      color: #fcd34d;
+    }
+
+    .btn-red {
+      background: rgba(239, 68, 68, 0.16);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      color: #fca5a5;
+    }
+
+    /* PLAN CHOICE PILLS */
+    .plan-opt {
+      background: var(--bg);
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 6px;
+      text-align: center;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .plan-opt.active {
+      border-color: var(--green);
+      background: rgba(16, 185, 129, 0.12);
+    }
+
+    .plan-opt strong {
+      display: block;
+      font-size: 13px;
+      color: #fff;
+    }
+
+    .plan-opt span {
+      display: block;
+      font-size: 11px;
+      color: #6ee7b7;
+      font-weight: 700;
+      margin-top: 2px;
+    }
+
+    /* LOCATION BOXES */
+    .loc-panel {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      padding: 11px;
+      margin-bottom: 12px;
+    }
+
+    .loc-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+
+    .loc-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .loc-info {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.3;
+    }
+
+    .loc-info strong {
+      display: block;
+      color: var(--text);
+      font-size: 12px;
+    }
+
+    .loc-info.set strong {
+      color: #6ee7b7;
+    }
+
+    .loc-actions {
+      display: flex;
+      gap: 5px;
+      flex-shrink: 0;
+    }
+
+    .mini-btn {
+      padding: 6px 9px;
+      font-size: 11px;
+      border-radius: 8px;
+      font-weight: 700;
+      border: 1px solid var(--border);
+      background: var(--card-2);
+      color: var(--text);
+      cursor: pointer;
+      white-space: nowrap;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .mini-btn.green {
+      background: rgba(16, 185, 129, 0.16);
+      border-color: rgba(16, 185, 129, 0.45);
+      color: #6ee7b7;
+    }
+
+    .mini-btn.red {
+      background: rgba(239, 68, 68, 0.16);
+      border-color: rgba(239, 68, 68, 0.42);
+      color: #fca5a5;
+    }
+
+    .mini-btn.blue {
+      background: rgba(59, 130, 246, 0.18);
+      border-color: rgba(59, 130, 246, 0.42);
+      color: #93c5fd;
+    }
+
+    .dist-hint {
+      background: rgba(59, 130, 246, 0.12);
+      border: 1px solid rgba(59, 130, 246, 0.35);
+      border-radius: 10px;
+      padding: 8px 11px;
+      font-size: 12px;
+      color: #93c5fd;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    /* MODALS (SUBSCRIPTION LOCK & DEVICE LOCK) */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: rgba(6, 10, 19, 0.88);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      overflow-y: auto;
+    }
+
+    .modal-card {
+      width: 100%;
+      max-width: 420px;
+      background: #141e31;
+      border: 1px solid #2b3c5c;
+      border-radius: 22px;
+      padding: 20px 18px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65);
+    }
+
+    .sub-summary {
+      background: #0b1120;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px 14px;
+      margin: 12px 0;
+      font-size: 13px;
+    }
+
+    .sub-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(40, 53, 77, 0.55);
+    }
+
+    .sub-row:last-child {
+      border-bottom: none;
+    }
+
+    /* MAP MODAL */
+    #mapModal {
+      position: fixed;
+      inset: 0;
+      z-index: 10001;
+      background: rgba(6, 10, 19, 0.94);
+      display: none;
+      flex-direction: column;
+      padding: 12px;
+    }
+
+    .map-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding-bottom: 10px;
+    }
+
+    #leafletMapBox {
+      flex: 1;
+      width: 100%;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      min-height: 300px;
+      background: #131c2e;
+    }
+
+    .map-footer {
+      padding-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    /* LOAD ITEM */
+    .load-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      padding: 14px;
+      margin-bottom: 11px;
+    }
+
+    .route-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-weight: 800;
+      font-size: 15px;
+      margin-bottom: 6px;
+    }
+
+    .price-tag {
+      background: rgba(16, 185, 129, 0.15);
+      color: #6ee7b7;
+      padding: 4px 9px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .load-desc {
+      font-size: 13px;
+      color: #e2e8f0;
+      margin-bottom: 8px;
+    }
+
+    .load-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .contact-reveal-box {
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      border-radius: 12px;
+      padding: 11px 12px;
+      margin-bottom: 8px;
+    }
+
+    .locked-note {
+      background: rgba(245, 158, 11, 0.12);
+      border: 1px dashed rgba(245, 158, 11, 0.45);
+      color: #fcd34d;
+      border-radius: 10px;
+      padding: 8px 10px;
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+
+    .loc-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(59, 130, 246, 0.14);
+      border: 1px solid rgba(59, 130, 246, 0.32);
+      color: #93c5fd;
+      padding: 3px 8px;
+      border-radius: 7px;
+      font-size: 11px;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .badge {
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .badge-open { background: rgba(16, 185, 129, 0.15); color: #6ee7b7; }
+    .badge-taken { background: rgba(59, 130, 246, 0.18); color: #93c5fd; }
+    .badge-done { background: rgba(148, 163, 184, 0.18); color: #cbd5e1; }
+    .badge-pending { background: rgba(245, 158, 11, 0.18); color: #fcd34d; }
+    .badge-expired { background: rgba(239, 68, 68, 0.18); color: #fca5a5; }
+
+    /* RECEIPT UPLOAD & PREVIEW */
+    .receipt-preview-wrap {
+      display: none;
+      margin-bottom: 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 8px;
+      text-align: center;
+    }
+
+    .receipt-preview-wrap img {
+      max-width: 100%;
+      max-height: 180px;
+      border-radius: 8px;
+      display: block;
+      margin: 0 auto 6px;
+    }
+
+    /* BOTTOM NAV */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 60;
+      background: #0d1424;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-around;
+      padding: 6px 4px 8px;
+    }
+
+    .nav-btn {
+      flex: 1;
+      background: none;
+      border: none;
+      color: var(--muted);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 4px 2px;
+      position: relative;
+    }
+
+    .nav-btn .ico {
+      font-size: 19px;
+    }
+
+    .nav-btn.active {
+      color: var(--green);
+    }
+
+    .nav-badge {
+      position: absolute;
+      top: 2px;
+      right: 18%;
+      background: var(--red);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 900;
+      padding: 1px 5px;
+      border-radius: 999px;
+      display: none;
+    }
+
+    /* PRE-ENTRY REGISTRATION OVERLAY */
+    #authOverlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: radial-gradient(circle at top, #13233c 0%, #080d18 75%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      overflow-y: auto;
+    }
+
+    .auth-card {
+      width: 100%;
+      max-width: 420px;
+      background: #141e31;
+      border: 1px solid #283754;
+      border-radius: 22px;
+      padding: 22px 18px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+    }
+
+    .role-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 14px 0;
+    }
+
+    .role-opt {
+      background: #0b1120;
+      border: 2px solid #26344d;
+      border-radius: 15px;
+      padding: 14px 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .role-opt.active {
+      border-color: var(--green);
+      background: rgba(16, 185, 129, 0.12);
+    }
+
+    .role-opt .r-ico {
+      font-size: 28px;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .role-opt strong {
+      display: block;
+      font-size: 14px;
+      color: #fff;
+    }
+
+    .role-opt small {
+      display: block;
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .session-alert-banner {
+      display: none;
+      background: rgba(239, 68, 68, 0.16);
+      border: 1px solid rgba(239, 68, 68, 0.5);
+      color: #fca5a5;
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-size: 12px;
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+
+    /* STAT GRID */
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .stat-box {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      padding: 12px;
+      text-align: center;
+    }
+
+    .stat-box strong {
+      display: block;
+      font-size: 20px;
+      color: var(--green);
+    }
+
+    .stat-box span {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .rules-code-box {
+      background: #070b14;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 11px;
+      color: #93c5fd;
+      white-space: pre-wrap;
+      overflow-x: auto;
+      margin-top: 8px;
+    }
+
+    .toast {
+      position: fixed;
+      top: 68px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--green);
+      color: #042116;
+      font-weight: 800;
+      font-size: 13px;
+      padding: 9px 16px;
+      border-radius: 999px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
+      display: none;
+      z-index: 10002;
+      white-space: nowrap;
+      max-width: 92vw;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .tab-page { display: none; }
+    .tab-page.active { display: block; }
+  </style>
+</head>
+<body>
+
+<div id="toast" class="toast"></div>
+
+<!-- SUBSCRIPTION REQUIRED MODAL (WHEN 3-DAY FREE TRIAL ENDS) -->
+<div id="subLockModal" class="modal-backdrop">
+  <div class="modal-card">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px;">
+      <div style="font-size:17px;font-weight:900;">👑 Oylik obuna talab qilinadi</div>
+      <button type="button" class="mini-btn" onclick="closeSubLockModal()">✕</button>
+    </div>
+    <p style="font-size:12.5px;color:var(--muted);">
+      3 kunlik bepul sinov muddatingiz tugagan (yoki bu qurilmada sinov avval ishlatilgan). Yuk egasining telefon raqami va aniq manzilini ochish uchun oylik obunani faollashtiring:
+    </p>
+
+    <div class="sub-summary">
+      <div class="sub-row">
+        <span style="color:var(--muted);">Tanlangan yuk:</span>
+        <strong id="sModalRoute">Navoiy → Toshkent</strong>
+      </div>
+      <div class="sub-row">
+        <span style="color:var(--muted);">Yuk narxi:</span>
+        <strong id="sModalLoadPrice">150 000 so'm</strong>
+      </div>
+      <div class="sub-row">
+        <span style="color:var(--muted);">Oylik obuna narxi:</span>
+        <strong style="color:#6ee7b7;font-size:15px;" id="sModalSubPrice">20 000 so'm / 30 kun</strong>
+      </div>
+      <div class="sub-row">
+        <span style="color:var(--muted);">Imkoniyat:</span>
+        <strong style="color:#fcd34d;">30 kun cheksiz raqam ochish (0% foiz)</strong>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <button type="button" class="btn btn-dark" onclick="closeSubLockModal()">Yopish</button>
+      <button type="button" class="btn btn-green" onclick="goActivateSubFromModal()">👑 Obuna olish</button>
+    </div>
+  </div>
+</div>
+
+<!-- SINGLE-DEVICE LOCK MODAL (WHEN ACCOUNT IS BOUND TO ANOTHER PHONE) -->
+<div id="deviceLockModal" class="modal-backdrop">
+  <div class="modal-card">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px;">
+      <div style="font-size:17px;font-weight:900;color:#fca5a5;">🔐 Boshqa qurilma aniqlandi</div>
+      <button type="button" class="mini-btn" onclick="closeDeviceLockModal()">✕</button>
+    </div>
+    <p style="font-size:12.5px;color:var(--muted);" id="dLockMainDesc">
+      Xavfsizlik qoidasiga ko‘ra, bitta akkaunt va oylik obunadan <b>bir vaqtda faqat 1 ta qurilma</b> foydalana oladi.
+    </p>
+
+    <div class="sub-summary">
+      <div class="sub-row">
+        <span style="color:var(--muted);">Akkaunt:</span>
+        <strong id="dLockAccountPhone">+998 ...</strong>
+      </div>
+      <div class="sub-row">
+        <span style="color:var(--muted);">Ulangan qurilma:</span>
+        <strong style="color:#fcd34d;" id="dLockBoundDevice">Android • Chrome</strong>
+      </div>
+      <div class="sub-row">
+        <span style="color:var(--muted);">Almashtirish holati:</span>
+        <strong id="dLockTransferStatus" style="color:#6ee7b7;">1 marta ruxsat bor</strong>
+      </div>
+    </div>
+
+    <div id="dLockLimitBlockedMsg" style="display:none;background:rgba(239,68,68,0.14);border:1px solid rgba(239,68,68,0.45);border-radius:12px;padding:10px 12px;margin-bottom:12px;font-size:12px;color:#fca5a5;">
+      ⛔ Ushbu akkauntda qurilmani o‘zgartirish limiti (1 marta) tugagan. Akkauntni bir nechta kishi ishlatishi taqiqlangan. Yangi telefonga o‘tish uchun Adminga murojaat qiling.
+    </div>
+
+    <div class="grid-2" id="dLockTransferBtns">
+      <button type="button" class="btn btn-dark" onclick="closeDeviceLockModal()">Bekor qilish</button>
+      <button type="button" class="btn btn-amber" onclick="confirmDeviceTransfer()">🔄 Shu qurilmaga o‘tkazish</button>
+    </div>
+
+    <div id="dLockCloseOnlyWrap" style="display:none;">
+      <button type="button" class="btn btn-dark btn-full" onclick="closeDeviceLockModal()">Tushunarli, yopish</button>
+    </div>
+  </div>
+</div>
+
+<!-- FULLSCREEN RECEIPT IMAGE PREVIEW MODAL (FOR ADMIN) -->
+<div id="receiptImgModal" class="modal-backdrop" onclick="this.style.display='none'">
+  <div class="modal-card" style="text-align:center;" onclick="event.stopPropagation()">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+      <strong style="font-size:15px;">🧾 To‘lov cheki</strong>
+      <button type="button" class="mini-btn" onclick="document.getElementById('receiptImgModal').style.display='none'">✕ Yopish</button>
+    </div>
+    <img id="receiptImgFull" src="" alt="Chek rasmi" style="max-width:100%;max-height:70vh;border-radius:12px;border:1px solid var(--border);" />
+  </div>
+</div>
+
+<!-- INTERACTIVE MAP PICKER / VIEWER MODAL -->
+<div id="mapModal">
+  <div class="map-header">
+    <div>
+      <div style="font-weight:900;font-size:15px;" id="mapModalTitle">📍 Xaritadan manzilni belgilang</div>
+      <div style="font-size:11px;color:var(--muted);" id="mapModalSub">Kerakli nuqta ustiga bosing yoki GPS tugmasidan foydalaning</div>
+    </div>
+    <button class="btn btn-dark" style="padding:7px 12px;font-size:12px;" onclick="closeMapModal()">✕ Yopish</button>
+  </div>
+
+  <div id="leafletMapBox"></div>
+
+  <div class="map-footer">
+    <div style="font-size:12px;color:#6ee7b7;text-align:center;" id="mapSelectedCoordsText">
+      Xaritadan nuqtani tanlang...
+    </div>
+    <div class="grid-2" id="mapPickerBtns">
+      <button class="btn btn-blue" style="padding:10px;font-size:13px;" onclick="useMyGpsInModal()">📍 Mening joylashuvim</button>
+      <button class="btn btn-green" style="padding:10px;font-size:13px;" onclick="confirmMapSelection()">✅ Shu joyni tanlash</button>
+    </div>
+  </div>
+</div>
+
+<!-- PRE-ENTRY REGISTRATION MODAL -->
+<div id="authOverlay">
+  <div class="auth-card">
+    <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:6px;">
+      <div class="brand-icon">🚚</div>
+      <div style="font-size:21px;font-weight:900;">Yo‘lakay Yuk</div>
+    </div>
+    <p style="text-align:center;font-size:13px;color:var(--muted);margin-bottom:10px;">
+      1 akkaunt = 1 qurilma • <b style="color:#6ee7b7;">Haydovchiga 3 kun BEPUL!</b>
+    </p>
+
+    <div id="sessionKickedBanner" class="session-alert-banner"></div>
+
+    <div class="role-grid">
+      <div class="role-opt active" id="optSender" onclick="pickAuthRole('sender')">
+        <span class="r-ico">📦</span>
+        <strong>Yuk beruvchi</strong>
+        <small>Yuk joylash 100% bepul</small>
+      </div>
+      <div class="role-opt" id="optDriver" onclick="pickAuthRole('driver')">
+        <span class="r-ico">🚚</span>
+        <strong>Yuk oluvchi</strong>
+        <small>3 kun tekin, keyin 20 000/oy</small>
+      </div>
+    </div>
+
+    <label for="regName">Ismingiz</label>
+    <input type="text" id="regName" placeholder="Masalan: Farizjon" />
+
+    <label for="regPhone">Telefon raqamingiz</label>
+    <input type="tel" id="regPhone" value="+998 " placeholder="+998 90 123 45 67" />
+
+    <div id="regCarWrap" style="display:none;">
+      <label for="regCar">Transport turi</label>
+      <select id="regCar">
+        <option value="Yengil avtomobil">Yengil avtomobil (Cobalt / Gentra / Nexia)</option>
+        <option value="Damas / Miniven">Damas / Miniven</option>
+        <option value="Labo / Porter">Labo / Hyundai Porter</option>
+        <option value="Gazel / Isuzu">Gazel / Isuzu</option>
+        <option value="Fura / Katta yuk mashinasi">Fura / Katta yuk mashinasi</option>
+      </select>
+    </div>
+
+    <div style="font-size:11px;color:var(--muted);margin:-4px 0 12px;display:flex;align-items:center;justify-content:space-between;">
+      <span>📱 Qurilma: <b style="color:#cbd5e1;" id="authDeviceLabelText">—</b></span>
+      <span>🔒 1 qurilma himoyasi</span>
+    </div>
+
+    <button class="btn btn-green btn-full" onclick="completeRegistration()">Davom etish →</button>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="container topbar">
+    <div class="brand" id="brandLogo">
+      <div class="brand-icon">🚚</div>
+      <div class="brand-name">Yo‘lakay<br>Yuk</div>
+    </div>
+
+    <div class="status-pill" id="dbStatusPill">
+      <span class="dot"></span>
+      <span id="dbStatusText">Lokal rejim</span>
+    </div>
+
+    <div class="sub-pill" onclick="switchTab('obuna')" id="headerSubPill">
+      🎁 Tekin: 3 kun
+    </div>
+  </div>
+
+  <div class="role-bar" id="userRoleBar">
+    <div class="container role-bar-inner">
+      <span id="userRoleLabel">📦 Yuk beruvchi</span>
+      <div style="display:flex;gap:6px;">
+        <button class="role-switch-btn" onclick="quickSwitchRole()">Rolni almashtirish</button>
+        <button class="mini-btn" style="padding:3px 7px;font-size:10.5px;" onclick="logoutCurrentDevice()" title="Chiqish">Chiqish</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <section class="hero">
+    <h1>O‘zbekiston bo‘ylab <span>yo‘lakay yuk</span> va tezkor posilka xizmati</h1>
+    <p>Yuk joylash <b>mutlaqo bepul</b>. Haydovchilar uchun dastlabki <b>3 kun tekin</b>, keyin bor-yo‘g‘i <b>20 000 so‘m / oy</b>!</p>
+  </section>
+
+  <!-- PWA INSTALL BANNER -->
+  <div class="install-banner" id="installBanner">
+    <span>📲 <b>Yo‘lakay Yuk</b> ni telefonga ilova qilib o‘rnating</span>
+    <button class="btn btn-blue" style="padding:6px 11px;font-size:12px;" onclick="triggerPwaInstall()">O‘rnatish</button>
+  </div>
+
+  <!-- TAB 1: YUK BERISH -->
+  <section id="page-berish" class="tab-page active">
+    <div class="card">
+      <div class="card-title">
+        <span>📦 Yangi yuk e’lon qilish</span>
+        <span class="badge badge-open">Bepul</span>
+      </div>
+
+      <div class="grid-2">
+        <div>
+          <label for="fromCity">Qayerdan (Viloyat / Shahar)</label>
+          <select id="fromCity" onchange="onCityChange()">
+            <option value="Navoiy">Navoiy</option>
+            <option value="Toshkent">Toshkent</option>
+            <option value="Samarqand">Samarqand</option>
+            <option value="Buxoro">Buxoro</option>
+            <option value="Qashqadaryo">Qashqadaryo</option>
+            <option value="Surxondaryo">Surxondaryo</option>
+            <option value="Jizzax">Jizzax</option>
+            <option value="Sirdaryo">Sirdaryo</option>
+            <option value="Farg‘ona">Farg‘ona</option>
+            <option value="Andijon">Andijon</option>
+            <option value="Namangan">Namangan</option>
+            <option value="Xorazm">Xorazm</option>
+            <option value="Qoraqalpog‘iston">Qoraqalpog‘iston</option>
+          </select>
+        </div>
+        <div>
+          <label for="toCity">Qayerga (Viloyat / Shahar)</label>
+          <select id="toCity" onchange="onCityChange()">
+            <option value="Toshkent">Toshkent</option>
+            <option value="Navoiy">Navoiy</option>
+            <option value="Samarqand">Samarqand</option>
+            <option value="Buxoro">Buxoro</option>
+            <option value="Qashqadaryo">Qashqadaryo</option>
+            <option value="Surxondaryo">Surxondaryo</option>
+            <option value="Jizzax">Jizzax</option>
+            <option value="Sirdaryo">Sirdaryo</option>
+            <option value="Farg‘ona">Farg‘ona</option>
+            <option value="Andijon">Andijon</option>
+            <option value="Namangan">Namangan</option>
+            <option value="Xorazm">Xorazm</option>
+            <option value="Qoraqalpog‘iston">Qoraqalpog‘iston</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- ANIQ LOKATSIYA TANLASH -->
+      <label>📍 Aniq lokatsiya (faqat obunali haydovchilarga ko‘rinadi)</label>
+      <div class="loc-panel">
+        <div class="loc-row">
+          <div class="loc-info" id="pickupLocStatus">
+            <strong>🟢 Olib ketish nuqtasi:</strong>
+            <span>Belgilanganmagan</span>
+          </div>
+          <div class="loc-actions">
+            <button type="button" class="mini-btn green" onclick="captureGpsPoint('pickup')">📍 GPS</button>
+            <button type="button" class="mini-btn" onclick="openMapPicker('pickup')">🗺 Xarita</button>
+          </div>
+        </div>
+        <div style="height:1px;background:var(--border);margin:8px 0;"></div>
+        <div class="loc-row">
+          <div class="loc-info" id="dropoffLocStatus">
+            <strong>🔴 Topshirish nuqtasi:</strong>
+            <span>Belgilanganmagan</span>
+          </div>
+          <div class="loc-actions">
+            <button type="button" class="mini-btn green" onclick="captureGpsPoint('dropoff')">📍 GPS</button>
+            <button type="button" class="mini-btn" onclick="openMapPicker('dropoff')">🗺 Xarita</button>
+          </div>
+        </div>
+      </div>
+
+      <input type="text" id="landmarkNote" placeholder="Mo‘ljal yoki ko‘cha nomi (masalan: Karmana bozori oldi, Chilonzor 5-kvartal)" />
+
+      <!-- MASOFA VA TAVSIYA NARX -->
+      <div class="dist-hint" id="routeEstimateBox">
+        <span>🛣 Taxminiy masofa: <b id="estDistanceText">~500 km</b></span>
+        <span>💡 Tavsiya: <b id="estPriceText">120 000 – 180 000 so‘m</b></span>
+      </div>
+
+      <label for="cargoDesc">Yuk nomi, o‘lchami yoki og‘irligi</label>
+      <textarea id="cargoDesc" placeholder="Masalan: 2 ta karobka maishiy texnika yoki 300 kg yuk, ehtiyotlab olib borish kerak..."></textarea>
+
+      <div class="grid-2">
+        <div>
+          <label for="cargoPrice">Taklif narxi (so‘m)</label>
+          <input type="number" id="cargoPrice" placeholder="Masalan: 150000" />
+        </div>
+        <div>
+          <label for="cargoVehicle">Kerakli mashina</label>
+          <select id="cargoVehicle">
+            <option value="Har qanday mashina">Har qanday mashina</option>
+            <option value="Yengil avtomobil">Yengil avtomobil</option>
+            <option value="Damas / Miniven">Damas / Miniven</option>
+            <option value="Labo / Porter">Labo / Porter</option>
+            <option value="Gazel / Isuzu">Gazel / Isuzu</option>
+            <option value="Fura">Fura</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div>
+          <label for="senderName">Ismingiz</label>
+          <input type="text" id="senderName" placeholder="Ismingiz" />
+        </div>
+        <div>
+          <label for="senderPhone">Telefon raqamingiz</label>
+          <input type="tel" id="senderPhone" placeholder="+998 90 123 45 67" />
+        </div>
+      </div>
+
+      <button class="btn btn-green btn-full" onclick="publishCargo()">🚀 Yukni bepul e’lon qilish</button>
+    </div>
+  </section>
+
+  <!-- TAB 2: YUK TOPISH -->
+  <section id="page-topish" class="tab-page">
+    <div class="card">
+      <div class="card-title">
+        <span>🚚 Mavjud yo‘lakay yuklar</span>
+        <div style="display:flex;gap:6px;">
+          <button class="btn btn-amber" style="padding:6px 9px;font-size:11px;" onclick="sortLoadsByMyLocation()">📍 Yaqin yuklar</button>
+          <button class="btn btn-dark" style="padding:6px 9px;font-size:11px;" onclick="syncFromFirebase()">🔄</button>
+        </div>
+      </div>
+
+      <!-- SUBSCRIPTION STATUS NOTICE FOR DRIVERS -->
+      <div id="loadsSubNotice" style="background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.35);border-radius:11px;padding:8px 11px;margin-bottom:10px;font-size:12px;color:#6ee7b7;display:flex;align-items:center;justify-content:space-between;gap:8px;">
+        <span id="loadsSubNoticeText">🎁 3 kunlik bepul sinov faol — raqamlarni cheksiz ochishingiz mumkin!</span>
+        <button type="button" class="mini-btn green" onclick="switchTab('obuna')">Obuna</button>
+      </div>
+
+      <div id="driverLocationBanner" style="display:none;background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.35);border-radius:10px;padding:7px 10px;margin-bottom:10px;font-size:12px;color:#93c5fd;">
+        📍 Joylashuvingiz aniqlandi — yuklar sizga eng yaqinidan boshlab tartiblandi
+      </div>
+
+      <div class="grid-2">
+        <select id="filterFrom" onchange="renderLoads()">
+          <option value="">Barcha hududdan</option>
+          <option value="Navoiy">Navoiy</option>
+          <option value="Toshkent">Toshkent</option>
+          <option value="Samarqand">Samarqand</option>
+          <option value="Buxoro">Buxoro</option>
+          <option value="Qashqadaryo">Qashqadaryo</option>
+          <option value="Surxondaryo">Surxondaryo</option>
+          <option value="Jizzax">Jizzax</option>
+          <option value="Sirdaryo">Sirdaryo</option>
+          <option value="Farg‘ona">Farg‘ona</option>
+          <option value="Andijon">Andijon</option>
+          <option value="Namangan">Namangan</option>
+          <option value="Xorazm">Xorazm</option>
+          <option value="Qoraqalpog‘iston">Qoraqalpog‘iston</option>
+        </select>
+
+        <select id="filterTo" onchange="renderLoads()">
+          <option value="">Barcha hududga</option>
+          <option value="Toshkent">Toshkent</option>
+          <option value="Navoiy">Navoiy</option>
+          <option value="Samarqand">Samarqand</option>
+          <option value="Buxoro">Buxoro</option>
+          <option value="Qashqadaryo">Qashqadaryo</option>
+          <option value="Surxondaryo">Surxondaryo</option>
+          <option value="Jizzax">Jizzax</option>
+          <option value="Sirdaryo">Sirdaryo</option>
+          <option value="Farg‘ona">Farg‘ona</option>
+          <option value="Andijon">Andijon</option>
+          <option value="Namangan">Namangan</option>
+          <option value="Xorazm">Xorazm</option>
+          <option value="Qoraqalpog‘iston">Qoraqalpog‘iston</option>
+        </select>
+      </div>
+
+      <div id="loadsList"></div>
+    </div>
+  </section>
+
+  <!-- TAB 3: BUYURTMA -->
+  <section id="page-buyurtma" class="tab-page">
+    <div class="card">
+      <div class="card-title">
+        <span>📋 Mening e’lonlarim va buyurtmalar</span>
+        <button class="btn btn-dark" style="padding:5px 9px;font-size:11px;" onclick="syncFromFirebase()">🔄 Yangilash</button>
+      </div>
+      <div id="myOrdersList"></div>
+    </div>
+  </section>
+
+  <!-- TAB 4: OYLIK OBUNA -->
+  <section id="page-obuna" class="tab-page">
+    <div class="card">
+      <div class="card-title">
+        <span>👑 Oylik obuna va qurilma holati</span>
+        <button class="btn btn-dark" style="padding:5px 9px;font-size:11px;" onclick="syncFromFirebase()">🔄 Tekshirish</button>
+      </div>
+
+      <div style="background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:14px;margin-bottom:14px;text-align:center;">
+        <div style="font-size:12px;color:var(--muted);">Obuna holatingiz</div>
+        <div style="font-size:21px;font-weight:900;color:var(--green);margin:5px 0;" id="subBigStatus">🎁 3 kunlik tekin sinov faol</div>
+        <div style="font-size:12px;color:#e2e8f0;margin-bottom:4px;" id="subExpiryDateText">Tugash vaqti: —</div>
+        <div style="font-size:11px;color:#93c5fd;margin-bottom:4px;" id="subDeviceBoundInfo">📱 Ulangan qurilma: —</div>
+        <div style="font-size:11px;color:var(--muted);" id="subTariffHint">
+          Haydovchilarga 3 kun BEPUL • Keyin oylik obuna: 20 000 so‘m (30 kun)
+        </div>
+      </div>
+
+      <label>Obuna muddatini tanlang</label>
+      <div class="grid-3" style="margin-bottom:12px;">
+        <div class="plan-opt active" id="planOpt1" onclick="selectSubMonths(1)">
+          <strong>1 oy (30 kun)</strong>
+          <span id="planPrice1">20 000 so‘m</span>
+        </div>
+        <div class="plan-opt" id="planOpt2" onclick="selectSubMonths(2)">
+          <strong>2 oy (60 kun)</strong>
+          <span id="planPrice2">40 000 so‘m</span>
+        </div>
+        <div class="plan-opt" id="planOpt3" onclick="selectSubMonths(3)">
+          <strong>3 oy (90 kun)</strong>
+          <span id="planPrice3">60 000 so‘m</span>
+        </div>
+      </div>
+
+      <div style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.35);border-radius:14px;padding:13px;margin-bottom:14px;">
+        <div style="font-size:12px;color:var(--muted);margin-bottom:4px;">1. Ushbu karta raqamiga <b style="color:#fff;" id="payTargetAmountText">20 000 so'm</b> o‘tkazing:</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+          <strong style="font-size:16px;letter-spacing:0.6px;color:#6ee7b7;" id="publicCardDisplay">9860 1606 2715 3283</strong>
+          <button class="btn btn-dark" style="padding:6px 10px;font-size:12px;" onclick="copyCardNumber()">📋 Nusxalash</button>
+        </div>
+        <div style="font-size:11px;color:var(--muted);margin-top:6px;">
+          2. To‘lov cheki skrinshotini yuklang va yuboring — admin tasdiqlashi bilan <b>30 kunlik obuna</b> yoqiladi.
+        </div>
+      </div>
+
+      <label for="topupAmount">To‘lov summasi (so‘m)</label>
+      <input type="number" id="topupAmount" value="20000" />
+
+      <label for="receiptFileInput">📸 To‘lov cheki rasmi (skrinshot — tez tasdiqlash uchun)</label>
+      <input type="file" id="receiptFileInput" accept="image/*" onchange="handleReceiptImageSelect(event)" style="padding:8px;" />
+
+      <div class="receipt-preview-wrap" id="receiptPreviewWrap">
+        <img id="receiptPreviewImg" src="" alt="Chek ko‘rinishi" />
+        <button type="button" class="mini-btn red" onclick="clearReceiptImage()">🗑 Rasmni olib tashlash</button>
+      </div>
+
+      <label for="topupNote">O‘tkazma izohi (karta egasi ismi yoki vaqti)</label>
+      <input type="text" id="topupNote" placeholder="Masalan: Sardor T. 19:40 da 20 000 so‘m o‘tkazdim" />
+
+      <button class="btn btn-green btn-full" id="submitSubBtn" onclick="submitTopupRequest()">✅ Oylik obuna so‘rovini yuborish</button>
+
+      <!-- USER'S OWN SUBSCRIPTION PAYMENT HISTORY -->
+      <div style="margin-top:16px;border-top:1px solid var(--border);padding-top:12px;">
+        <div style="font-size:13px;font-weight:800;margin-bottom:8px;">So‘nggi obuna to‘lovlaringiz</div>
+        <div id="myTopupsHistory" style="font-size:12px;color:var(--muted);">Hozircha so‘rovlar yo‘q</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TAB 5: YASHIRIN ADMIN PANEL -->
+  <section id="page-admin" class="tab-page">
+    <div class="card" id="adminLockBox" style="text-align:center;padding:26px 18px;">
+      <div style="font-size:40px;margin-bottom:10px;">🔐</div>
+      <h2 style="font-size:20px;font-weight:900;margin-bottom:6px;">Admin paneliga kirish</h2>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:16px;">
+        Sayt egasi statistikasi, cheklar va qurilmalar nazoratini ochish uchun PIN-kodni kiriting.
+      </p>
+      <input type="password" id="adminPinInput" maxlength="12" placeholder="PIN-kodni kiriting" style="text-align:center;font-size:18px;letter-spacing:4px;" />
+      <button class="btn btn-green btn-full" onclick="unlockAdminPanel()">Kirish</button>
+    </div>
+
+    <div id="adminDashboard" style="display:none;">
+      <div class="card">
+        <div class="card-title">
+          <span>📊 Sayt statistikasi</span>
+          <div style="display:flex;gap:6px;">
+            <button class="btn btn-dark" style="padding:5px 9px;font-size:11px;" onclick="syncFromFirebase()">🔄 Yangilash</button>
+            <button class="btn btn-red" style="padding:5px 9px;font-size:11px;" onclick="hideAdminFromMenu()">Yashirish</button>
+          </div>
+        </div>
+        <div class="stat-grid">
+          <div class="stat-box"><strong id="stLoads">0</strong><span>Faol yuklar</span></div>
+          <div class="stat-box"><strong id="stClosedLoads">0</strong><span>Yopilgan / Eski</span></div>
+          <div class="stat-box"><strong id="stActiveSubs">0</strong><span>Faol obunachilar</span></div>
+          <div class="stat-box"><strong id="stDrivers">0</strong><span>Jami haydovchilar</span></div>
+        </div>
+        <div style="background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.35);border-radius:12px;padding:10px 12px;display:flex;justify-content:space-between;align-items:center;font-size:13px;">
+          <span>💰 Tasdiqlangan obuna tushumi:</span>
+          <strong style="color:#6ee7b7;font-size:15px;" id="stTotalRevenue">0 so'm</strong>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">
+          <span>👑 Oylik obuna to‘lov so‘rovlari</span>
+          <span class="badge badge-pending" id="pendingCountBadge">0 ta yangi</span>
+        </div>
+        <div id="adminTopupsList" style="font-size:13px;color:var(--muted);">Yangi so‘rovlar yo‘q</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">👥 Foydalanuvchilar, obuna va 1-qurilma nazorati</div>
+        <p style="font-size:12px;color:var(--muted);margin-bottom:10px;">
+          Har bir akkaunt qaysi qurilmaga ulanganini ko‘rishingiz, <b>+30 kun</b> qo‘shishingiz yoki yangi telefonga o‘tsa <b>🔓 Qurilmani yechish</b> ni bosishingiz mumkin:
+        </p>
+        <div id="adminUsersList" style="font-size:13px;color:var(--muted);">Hozircha foydalanuvchilar yo‘q</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">📦 Barcha yuklar nazorati</div>
+        <div id="adminLoadsList" style="font-size:13px;color:var(--muted);">Yuklar yo‘q</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">⚙️ Jonli Baza, Obuna va Xavfsizlik Sozlamalari</div>
+        <label for="cfgFirebase">Firebase Realtime Database URL</label>
+        <input type="text" id="cfgFirebase" placeholder="https://yo-lakay-yuk-default-rtdb.firebaseio.com" />
+
+        <label for="cfgBotToken">Telegram Bot Token (@BotFather dan)</label>
+        <input type="text" id="cfgBotToken" placeholder="123456789:AAH..." />
+
+        <label for="cfgChatId">Sizning Telegram Chat ID (@userinfobot dan)</label>
+        <input type="text" id="cfgChatId" placeholder="5123456789" />
+
+        <label for="cfgCard">To‘lov qabul qiluvchi karta raqamingiz</label>
+        <input type="text" id="cfgCard" value="9860 1606 2715 3283" />
+
+        <div class="grid-3">
+          <div>
+            <label for="cfgTrialDays">Tekin sinov (kun)</label>
+            <input type="number" id="cfgTrialDays" min="0" value="3" />
+          </div>
+          <div>
+            <label for="cfgMonthlyPrice">Oylik narx (so‘m)</label>
+            <input type="number" id="cfgMonthlyPrice" min="0" value="20000" />
+          </div>
+          <div>
+            <label for="cfgSubDays">Obuna (kun)</label>
+            <input type="number" id="cfgSubDays" min="1" value="30" />
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div>
+            <label for="cfgLoadExpireHours">Yuk muddati (soat)</label>
+            <input type="number" id="cfgLoadExpireHours" min="1" value="48" />
+          </div>
+          <div>
+            <label for="cfgPin">Yangi Admin PIN-kod</label>
+            <input type="password" id="cfgPin" placeholder="Yangi PIN (bo‘sh = o‘zgarmaydi)" />
+          </div>
+        </div>
+
+        <button class="btn btn-blue btn-full" onclick="saveAdminSettings()">💾 Sozlamalarni saqlash va ulash</button>
+
+        <div style="margin-top:14px;border-top:1px solid var(--border);padding-top:12px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:12px;font-weight:800;color:#93c5fd;">🛡 Firebase Xavfsizlik Qoidalari (Rules)</span>
+            <button type="button" class="mini-btn blue" onclick="copyFirebaseRules()">📋 Qoidalarni nusxalash</button>
+          </div>
+          <p style="font-size:11px;color:var(--muted);margin-top:4px;">
+            Mijoz raqamlarini tashqi ko‘zlardan himoyalash uchun Firebase Console → Realtime Database → Rules bo‘limiga quyidagini joylang:
+          </p>
+          <pre class="rules-code-box" id="firebaseRulesCode">{
+  "rules": {
+    "loads": { ".read": true, ".write": true },
+    "load_contacts": { ".read": true, ".write": true },
+    "users": { ".read": true, ".write": true },
+    "topups": { ".read": true, ".write": true },
+    "device_trials": { ".read": true, ".write": true },
+    "settings": { ".read": true, ".write": true }
+  }
+}</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- BOTTOM NAVIGATION -->
+<nav class="bottom-nav">
+  <button class="nav-btn active" id="nav-berish" onclick="switchTab('berish')">
+    <span class="ico">📦</span>
+    <span>Yuk berish</span>
+  </button>
+  <button class="nav-btn" id="nav-topish" onclick="switchTab('topish')">
+    <span class="ico">🚚</span>
+    <span>Yuk topish</span>
+  </button>
+  <button class="nav-btn" id="nav-buyurtma" onclick="switchTab('buyurtma')">
+    <span class="ico">📋</span>
+    <span>Buyurtma</span>
+  </button>
+  <button class="nav-btn" id="nav-obuna" onclick="switchTab('obuna')">
+    <span class="ico">👑</span>
+    <span>Obuna</span>
+  </button>
+  <button class="nav-btn" id="nav-admin" onclick="switchTab('admin')" style="display:none;">
+    <span class="nav-badge" id="adminTopupDot">0</span>
+    <span class="ico">🔐</span>
+    <span>Admin</span>
+  </button>
+</nav>
+
+<script>
+  const DEFAULT_FIREBASE_URL = "https://yo-lakay-yuk-default-rtdb.firebaseio.com";
+  const DAY_MS = 24 * 60 * 60 * 1000;
+  const HOUR_MS = 60 * 60 * 1000;
+  // SHA-256 of default PIN "7777"
+  const DEFAULT_PIN_HASH = "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4";
+
+  // O'zbekiston viloyatlari markaziy koordinatalari
+  const REGION_COORDS = {
+    "Navoiy": [40.1039, 65.3688],
+    "Toshkent": [41.2995, 69.2401],
+    "Samarqand": [39.6542, 66.9597],
+    "Buxoro": [39.7681, 64.4556],
+    "Qashqadaryo": [38.8606, 65.7891],
+    "Surxondaryo": [37.2242, 67.2783],
+    "Jizzax": [40.1158, 67.8422],
+    "Sirdaryo": [40.4915, 68.7811],
+    "Farg‘ona": [40.3842, 71.7843],
+    "Andijon": [40.7821, 72.3442],
+    "Namangan": [40.9983, 71.6726],
+    "Xorazm": [41.5500, 60.6333],
+    "Qoraqalpog‘iston": [42.4600, 59.6166]
+  };
+
+  const KEYS = {
+    USER: "yl_user_profile_v5",
+    OWNER: "yl_owner_mode_v5",
+    CFG: "yl_app_config_v5",
+    LOADS: "yl_loads_cache_v5",
+    CONTACTS: "yl_contacts_cache_v5",
+    TOPUPS: "yl_topups_cache_v5",
+    USERS: "yl_users_cache_v5",
+    DEVICE_ID: "yl_device_unique_id_v5",
+    SESSION_ID: "yl_active_session_v5",
+    TRIAL_USED: "yl_device_trial_claimed_v5"
+  };
+
+  // --- SINGLE-DEVICE FINGERPRINT & SESSION ID ---
+  function getOrCreateDeviceId() {
+    let id = localStorage.getItem(KEYS.DEVICE_ID);
+    if (!id) {
+      const hw = [
+        navigator.platform || "",
+        screen.width + "x" + screen.height,
+        navigator.language || "",
+        Intl.DateTimeFormat().resolvedOptions().timeZone || ""
+      ].join("|");
+      let hash = 0;
+      for (let i = 0; i < hw.length; i++) {
+        hash = ((hash << 5) - hash) + hw.charCodeAt(i);
+        hash |= 0;
+      }
+      const rand = Math.random().toString(36).substring(2, 9).toUpperCase();
+      id = "DEV-" + Math.abs(hash).toString(36).toUpperCase() + "-" + rand;
+      localStorage.setItem(KEYS.DEVICE_ID, id);
+    }
+    return id;
+  }
+
+  function getDeviceLabel() {
+    const ua = navigator.userAgent || "";
+    let os = "Qurilma";
+    if (/Android/i.test(ua)) os = "Android";
+    else if (/iPhone|iPad|iPod/i.test(ua)) os = "iPhone/iOS";
+    else if (/Windows/i.test(ua)) os = "Windows PC";
+    else if (/Mac/i.test(ua)) os = "Mac";
+    else if (/Linux/i.test(ua)) os = "Linux";
+
+    let browser = "Brauzer";
+    if (/YaBrowser/i.test(ua)) browser = "Yandex";
+    else if (/Edg/i.test(ua)) browser = "Edge";
+    else if (/Chrome/i.test(ua) && !/Edg/i.test(ua)) browser = "Chrome";
+    else if (/Safari/i.test(ua) && !/Chrome/i.test(ua)) browser = "Safari";
+    else if (/Firefox/i.test(ua)) browser = "Firefox";
+    else if (/Telegram/i.test(ua)) browser = "Telegram";
+
+    return `${os} • ${browser}`;
+  }
+
+  const LOCAL_DEVICE_ID = getOrCreateDeviceId();
+  const LOCAL_DEVICE_LABEL = getDeviceLabel();
+  let localSessionId = localStorage.getItem(KEYS.SESSION_ID) || "";
+
+  let config = JSON.parse(localStorage.getItem(KEYS.CFG) || "null") || {
+    firebaseUrl: DEFAULT_FIREBASE_URL,
+    botToken: "",
+    chatId: "",
+    card: "9860 1606 2715 3283",
+    pinHash: DEFAULT_PIN_HASH,
+    trialDays: 3,
+    monthlyPrice: 20000,
+    subDays: 30,
+    loadExpireHours: 48
+  };
+
+  if (!config.firebaseUrl) config.firebaseUrl = DEFAULT_FIREBASE_URL;
+  if (!config.pinHash) config.pinHash = DEFAULT_PIN_HASH;
+  if (typeof config.trialDays !== "number" || isNaN(config.trialDays)) config.trialDays = 3;
+  if (typeof config.monthlyPrice !== "number" || isNaN(config.monthlyPrice)) config.monthlyPrice = 20000;
+  if (typeof config.subDays !== "number" || isNaN(config.subDays)) config.subDays = 30;
+  if (typeof config.loadExpireHours !== "number" || isNaN(config.loadExpireHours)) config.loadExpireHours = 48;
+
+  let userProfile = JSON.parse(localStorage.getItem(KEYS.USER) || "null");
+
+  // Public loads cache (NO sensitive phone numbers stored in public feed!)
+  let loadsList = JSON.parse(localStorage.getItem(KEYS.LOADS) || "null") || [
+    {
+      id: "demo1",
+      from: "Navoiy",
+      to: "Toshkent",
+      distanceKm: 505,
+      desc: "2 ta o‘rtacha karobka (kiyim-kechak va uy anjomlari), yengil mashina bagajiga sig‘adi.",
+      price: 120000,
+      vehicle: "Yengil avtomobil",
+      senderFirstName: "Jamshid",
+      senderKey: "998907321122",
+      status: "open",
+      viewsCount: 2,
+      createdAt: Date.now() - 3600000,
+      expiresAt: Date.now() + 47 * HOUR_MS
+    },
+    {
+      id: "demo2",
+      from: "Samarqand",
+      to: "Buxoro",
+      distanceKm: 265,
+      desc: "400 kg qurilish mollari (qoplarda), Labo yoki Damas kerak.",
+      price: 250000,
+      vehicle: "Labo / Porter",
+      senderFirstName: "Otabek",
+      senderKey: "998915048899",
+      status: "open",
+      viewsCount: 1,
+      createdAt: Date.now() - 1800000,
+      expiresAt: Date.now() + 47.5 * HOUR_MS
+    }
+  ];
+
+  // Protected contacts cache (fetched ONLY when subscribed driver clicks "Raqamni ko‘rish" or for user's own loads)
+  let loadContactsCache = JSON.parse(localStorage.getItem(KEYS.CONTACTS) || "null") || {
+    demo1: {
+      pickupLat: 40.1039,
+      pickupLng: 65.3688,
+      pickupLabel: "Navoiy shahar markazi",
+      dropoffLat: 41.2995,
+      dropoffLng: 69.2401,
+      dropoffLabel: "Toshkent, Chilonzor",
+      landmark: "Karmana avtovokzal yaqini",
+      senderName: "Jamshid",
+      senderPhone: "+998 90 732 11 22"
+    },
+    demo2: {
+      pickupLat: 39.6542,
+      pickupLng: 66.9597,
+      pickupLabel: "Samarqand, Registon atrofi",
+      dropoffLat: 39.7681,
+      dropoffLng: 64.4556,
+      dropoffLabel: "Buxoro markaziy bozor",
+      landmark: "Siyob bozori kirish qismi",
+      senderName: "Otabek",
+      senderPhone: "+998 91 504 88 99"
+    }
+  };
+
+  let revealedLoadIds = {}; // Track which loads have their contact panel expanded in UI
+  let usersMap = JSON.parse(localStorage.getItem(KEYS.USERS) || "{}");
+  let topupsList = JSON.parse(localStorage.getItem(KEYS.TOPUPS) || "[]");
+  let selectedAuthRole = "sender";
+  let selectedPlanMonths = 1;
+  let adminUnlocked = false;
+  let deferredInstallPrompt = null;
+  let pendingTransferUser = null;
+  let pendingReceiptBase64 = "";
+
+  // Location state for creating a cargo
+  let draftPickup = null;   // { lat, lng, label }
+  let draftDropoff = null;  // { lat, lng, label }
+  let driverCurrentCoords = null; // { lat, lng }
+
+  // Leaflet Map state
+  let mapInstance = null;
+  let mapMarker = null;
+  let mapSecondMarker = null;
+  let mapPickerTarget = "pickup"; // "pickup" | "dropoff" | "view"
+  let tempPickedCoords = null;
+
+  async function sha256Hex(str) {
+    const buf = new TextEncoder().encode(String(str));
+    const hashBuffer = await crypto.subtle.digest("SHA-256", buf);
+    return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, "0")).join("");
+  }
+
+  window.addEventListener("beforeinstallprompt", (e) => {
+    e.preventDefault();
+    deferredInstallPrompt = e;
+    const banner = document.getElementById("installBanner");
+    if (banner) banner.style.display = "flex";
+  });
+
+  async function triggerPwaInstall() {
+    if (!deferredInstallPrompt) {
+      toast("📲 Brauzer menyusidan «Bosh ekranga qo‘shish» ni bosing");
+      return;
+    }
+    deferredInstallPrompt.prompt();
+    const choice = await deferredInstallPrompt.userChoice;
+    if (choice && choice.outcome === "accepted") {
+      document.getElementById("installBanner").style.display = "none";
+      toast("✅ Ilova telefoningizga o‘rnatildi!");
+    }
+    deferredInstallPrompt = null;
+  }
+
+  function toast(msg) {
+    const el = document.getElementById("toast");
+    el.textContent = msg;
+    el.style.display = "block";
+    setTimeout(() => { el.style.display = "none"; }, 3000);
+  }
+
+  function formatSom(num) {
+    return Number(num || 0).toLocaleString("ru-RU") + " so'm";
+  }
+
+  function formatDateTime(ts) {
+    if (!ts) return "—";
+    const d = new Date(Number(ts));
+    const pad = n => String(n).padStart(2, "0");
+    return `${pad(d.getDate())}.${pad(d.getMonth() + 1)}.${d.getFullYear()} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+  }
+
+  function phoneToKey(phone) {
+    return String(phone || "").replace(/\D/g, "");
+  }
+
+  function getTrialDays() {
+    const d = Number(config.trialDays);
+    return isNaN(d) || d < 0 ? 3 : d;
+  }
+
+  function getMonthlyPrice() {
+    const p = Number(config.monthlyPrice);
+    return isNaN(p) || p < 0 ? 20000 : p;
+  }
+
+  function getSubDays() {
+    const d = Number(config.subDays);
+    return isNaN(d) || d < 1 ? 30 : d;
+  }
+
+  function getLoadExpireHours() {
+    const h = Number(config.loadExpireHours);
+    return isNaN(h) || h < 1 ? 48 : h;
+  }
+
+  function isLoadExpired(load) {
+    if (!load) return true;
+    const exp = load.expiresAt || ((load.createdAt || Date.now()) + getLoadExpireHours() * HOUR_MS);
+    return Date.now() > exp;
+  }
+
+  function getSubStatus(u = userProfile) {
+    const tDays = getTrialDays();
+    if (!u) {
+      return {
+        active: false,
+        isTrial: false,
+        notStarted: true,
+        remainingMs: 0,
+        remainingDays: 0,
+        remainingHours: 0,
+        expiresAt: 0,
+        pillText: `🎁 Tekin: ${tDays} kun`,
+        statusTitle: `🎁 ${tDays} kunlik tekin sinov`
+      };
+    }
+
+    // If user is currently a sender and has never activated driver trial/sub yet
+    if (u.role === "sender" && !u.trialStarted && (!u.subExpiresAt || u.subExpiresAt <= 0)) {
+      return {
+        active: false,
+        isTrial: false,
+        notStarted: true,
+        remainingMs: 0,
+        remainingDays: tDays,
+        remainingHours: tDays * 24,
+        expiresAt: 0,
+        pillText: "📦 Yuk berish: Bepul",
+        statusTitle: `🎁 Haydovchi rejimiga o‘tsangiz ${tDays} kun tekin boshlanadi`
+      };
+    }
+
+    const now = Date.now();
+    const exp = Number(u.subExpiresAt || 0);
+    const remainingMs = Math.max(0, exp - now);
+    const active = remainingMs > 0;
+    const isTrial = u.subType === "trial";
+    const remainingDays = Math.ceil(remainingMs / DAY_MS);
+    const remainingHours = Math.ceil(remainingMs / HOUR_MS);
+
+    if (active) {
+      const timeLabel = remainingDays > 1 ? `${remainingDays} kun qoldi` : `${remainingHours} soat qoldi`;
+      return {
+        active: true,
+        isTrial,
+        notStarted: false,
+        remainingMs,
+        remainingDays,
+        remainingHours,
+        expiresAt: exp,
+        pillText: isTrial ? `🎁 Tekin: ${timeLabel}` : `✅ Obuna: ${timeLabel}`,
+        statusTitle: isTrial
+          ? `🎁 Tekin sinov faol (${timeLabel})`
+          : `✅ Oylik obuna faol (${timeLabel})`
+      };
+    }
+
+    return {
+      active: false,
+      isTrial: false,
+      notStarted: false,
+      remainingMs: 0,
+      remainingDays: 0,
+      remainingHours: 0,
+      expiresAt: exp,
+      pillText: "🔒 Obuna tugagan",
+      statusTitle: u.subType === "device_trial_used"
+        ? "⚠️ Bu qurilmada tekin sinov ishlatilgan"
+        : "⚠️ Obuna muddati tugagan"
+    };
+  }
+
+  function selectSubMonths(months) {
+    selectedPlanMonths = months;
+    [1, 2, 3].forEach(m => {
+      const el = document.getElementById("planOpt" + m);
+      if (el) el.classList.toggle("active", m === months);
+    });
+    const total = months * getMonthlyPrice();
+    document.getElementById("topupAmount").value = total;
+    document.getElementById("payTargetAmountText").textContent = formatSom(total);
+  }
+
+  function updateSubscriptionUI() {
+    const sub = getSubStatus(userProfile);
+    const mPrice = getMonthlyPrice();
+    const tDays = getTrialDays();
+    const sDays = getSubDays();
+
+    const pill = document.getElementById("headerSubPill");
+    if (pill) {
+      pill.textContent = sub.pillText;
+      pill.classList.remove("expired", "sender-free");
+      if (sub.notStarted) {
+        pill.classList.add("sender-free");
+      } else if (!sub.active) {
+        pill.classList.add("expired");
+      }
+    }
+
+    const bigStatus = document.getElementById("subBigStatus");
+    if (bigStatus) {
+      bigStatus.textContent = sub.statusTitle;
+      bigStatus.style.color = sub.active || sub.notStarted ? "var(--green)" : "#fca5a5";
+    }
+
+    const expText = document.getElementById("subExpiryDateText");
+    if (expText) {
+      if (sub.notStarted) {
+        expText.textContent = `3 kunlik sinov hisoblagichi hali ishga tushmagan (haydovchi bo‘lganingizda boshlanadi)`;
+      } else {
+        expText.textContent = sub.expiresAt
+          ? `Amal qilish muddati: ${formatDateTime(sub.expiresAt)}`
+          : `Sinov muddati ishlatilgan`;
+      }
+    }
+
+    const devBoundEl = document.getElementById("subDeviceBoundInfo");
+    if (devBoundEl) {
+      devBoundEl.textContent = `📱 Ulangan qurilma: ${LOCAL_DEVICE_LABEL} (${LOCAL_DEVICE_ID.slice(0, 12)})`;
+    }
+
+    const tariffHint = document.getElementById("subTariffHint");
+    if (tariffHint) {
+      tariffHint.textContent =
+        `Haydovchilarga ${tDays} kun BEPUL • Keyin oylik obuna: ${formatSom(mPrice)} (${sDays} kun — cheksiz raqam ochish)`;
+    }
+
+    const p1 = document.getElementById("planPrice1");
+    const p2 = document.getElementById("planPrice2");
+    const p3 = document.getElementById("planPrice3");
+    if (p1) p1.textContent = formatSom(mPrice);
+    if (p2) p2.textContent = formatSom(mPrice * 2);
+    if (p3) p3.textContent = formatSom(mPrice * 3);
+
+    const payTarget = document.getElementById("payTargetAmountText");
+    if (payTarget) payTarget.textContent = formatSom(selectedPlanMonths * mPrice);
+
+    const cardEl = document.getElementById("publicCardDisplay");
+    if (cardEl) cardEl.textContent = config.card || "9860 1606 2715 3283";
+
+    const noticeBox = document.getElementById("loadsSubNotice");
+    const noticeTxt = document.getElementById("loadsSubNoticeText");
+    if (noticeBox && noticeTxt) {
+      if (sub.active) {
+        noticeBox.style.background = "rgba(16,185,129,0.12)";
+        noticeBox.style.borderColor = "rgba(16,185,129,0.35)";
+        noticeBox.style.color = "#6ee7b7";
+        noticeTxt.textContent = `${sub.statusTitle} — raqamlarni cheksiz ochishingiz mumkin!`;
+      } else {
+        noticeBox.style.background = "rgba(239,68,68,0.14)";
+        noticeBox.style.borderColor = "rgba(239,68,68,0.42)";
+        noticeBox.style.color = "#fca5a5";
+        noticeTxt.textContent = `🔒 Raqamlar yopiq. Mijoz bilan bog‘lanish uchun ${formatSom(mPrice)} oylik obuna oling.`;
+      }
+    }
+  }
+
+  // --- RECEIPT IMAGE UPLOAD & COMPRESSION ---
+  function handleReceiptImageSelect(event) {
+    const file = event.target.files && event.target.files[0];
+    if (!file) return;
+    if (!file.type.startsWith("image/")) {
+      toast("⚠️ Iltimos, faqat rasm (skrinshot) tanlang!");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const img = new Image();
+      img.onload = function() {
+        const canvas = document.createElement("canvas");
+        const maxW = 720;
+        let w = img.width;
+        let h = img.height;
+        if (w > maxW) {
+          h = Math.round((h * maxW) / w);
+          w = maxW;
+        }
+        canvas.width = w;
+        canvas.height = h;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, w, h);
+        pendingReceiptBase64 = canvas.toDataURL("image/jpeg", 0.68);
+        document.getElementById("receiptPreviewImg").src = pendingReceiptBase64;
+        document.getElementById("receiptPreviewWrap").style.display = "block";
+        toast("📸 Chek rasmi tayyor!");
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function clearReceiptImage() {
+    pendingReceiptBase64 = "";
+    document.getElementById("receiptFileInput").value = "";
+    document.getElementById("receiptPreviewWrap").style.display = "none";
+  }
+
+  function openReceiptFull(src) {
+    if (!src) return;
+    document.getElementById("receiptImgFull").src = src;
+    document.getElementById("receiptImgModal").style.display = "flex";
+  }
+
+  // --- DISTANCE & LOCATION HELPERS ---
+  function haversineKm(lat1, lon1, lat2, lon2) {
+    const R = 6371;
+    const dLat = (lat2 - lat1) * Math.PI / 180;
+    const dLon = (lon2 - lon1) * Math.PI / 180;
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+      Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return Math.max(1, Math.round(R * c * 1.22));
+  }
+
+  function updateRouteEstimate() {
+    const fromCity = document.getElementById("fromCity").value;
+    const toCity = document.getElementById("toCity").value;
+
+    const p1 = draftPickup ? [draftPickup.lat, draftPickup.lng] : (REGION_COORDS[fromCity] || [40.1, 65.36]);
+    const p2 = draftDropoff ? [draftDropoff.lat, draftDropoff.lng] : (REGION_COORDS[toCity] || [41.29, 69.24]);
+
+    const km = fromCity === toCity && !draftPickup && !draftDropoff ? 15 : haversineKm(p1[0], p1[1], p2[0], p2[1]);
+    const minPrice = Math.max(30000, Math.round((km * 240) / 10000) * 10000);
+    const maxPrice = Math.max(50000, Math.round((km * 360) / 10000) * 10000);
+
+    document.getElementById("estDistanceText").textContent = `~${km} km`;
+    document.getElementById("estPriceText").textContent = `${minPrice.toLocaleString("ru-RU")} – ${maxPrice.toLocaleString("ru-RU")} so‘m`;
+    return km;
+  }
+
+  function onCityChange() {
+    updateRouteEstimate();
+  }
+
+  async function reverseGeocodeLabel(lat, lng, fallbackCity) {
+    try {
+      const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}&accept-language=uz`);
+      if (res.ok) {
+        const data = await res.json();
+        const addr = data.address || {};
+        const parts = [
+          addr.city || addr.town || addr.village || addr.county || fallbackCity,
+          addr.suburb || addr.neighbourhood || addr.road || ""
+        ].filter(Boolean);
+        if (parts.length) return parts.join(", ");
+      }
+    } catch (e) {}
+    return `${fallbackCity} (${lat.toFixed(4)}, ${lng.toFixed(4)})`;
+  }
+
+  function updateDraftLocationUI() {
+    const pBox = document.getElementById("pickupLocStatus");
+    const dBox = document.getElementById("dropoffLocStatus");
+
+    if (draftPickup) {
+      pBox.classList.add("set");
+      pBox.innerHTML = `<strong>🟢 Olib ketish nuqtasi:</strong><span>${escapeHtml(draftPickup.label)}</span>`;
+    } else {
+      pBox.classList.remove("set");
+      pBox.innerHTML = `<strong>🟢 Olib ketish nuqtasi:</strong><span>Belgilanganmagan</span>`;
+    }
+
+    if (draftDropoff) {
+      dBox.classList.add("set");
+      dBox.innerHTML = `<strong>🔴 Topshirish nuqtasi:</strong><span>${escapeHtml(draftDropoff.label)}</span>`;
+    } else {
+      dBox.classList.remove("set");
+      dBox.innerHTML = `<strong>🔴 Topshirish nuqtasi:</strong><span>Belgilanganmagan</span>`;
+    }
+    updateRouteEstimate();
+  }
+
+  function captureGpsPoint(target) {
+    if (!navigator.geolocation) {
+      toast("⚠️ Brauzeringiz GPS lokatsiyani qo‘llab-quvvatlamaydi");
+      return;
+    }
+    toast("📡 GPS joylashuv aniqlanmoqda...");
+    navigator.geolocation.getCurrentPosition(
+      async (pos) => {
+        const lat = pos.coords.latitude;
+        const lng = pos.coords.longitude;
+        const city = target === "pickup" ? document.getElementById("fromCity").value : document.getElementById("toCity").value;
+        const label = await reverseGeocodeLabel(lat, lng, city);
+        if (target === "pickup") {
+          draftPickup = { lat, lng, label };
+        } else {
+          draftDropoff = { lat, lng, label };
+        }
+        updateDraftLocationUI();
+        toast("✅ Aniq GPS lokatsiya belgilandi!");
+      },
+      () => {
+        toast("⚠️ GPS ruxsat berilmadi. Xaritadan belgilashingiz mumkin.");
+        openMapPicker(target);
+      },
+      { enableHighAccuracy: true, timeout: 9000 }
+    );
+  }
+
+  function ensureLeafletMap(centerCoords, zoomLevel) {
+    if (typeof L === "undefined") {
+      toast("⚠️ Xarita yuklanmadi (internetni tekshiring)");
+      return false;
+    }
+    if (!mapInstance) {
+      mapInstance = L.map("leafletMapBox").setView(centerCoords, zoomLevel);
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 19,
+        attribution: "© OpenStreetMap"
+      }).addTo(mapInstance);
+
+      mapInstance.on("click", (e) => {
+        if (mapPickerTarget === "view") return;
+        setModalPin(e.latlng.lat, e.latlng.lng);
+      });
+    } else {
+      mapInstance.setView(centerCoords, zoomLevel);
+    }
+    setTimeout(() => { mapInstance.invalidateSize(); }, 180);
+    return true;
+  }
+
+  function setModalPin(lat, lng) {
+    tempPickedCoords = { lat, lng };
+    if (mapMarker) {
+      mapMarker.setLatLng([lat, lng]);
+    } else {
+      mapMarker = L.marker([lat, lng]).addTo(mapInstance);
+    }
+    document.getElementById("mapSelectedCoordsText").textContent =
+      `Tanlangan nuqta: ${lat.toFixed(5)}, ${lng.toFixed(5)}`;
+  }
+
+  function openMapPicker(target) {
+    mapPickerTarget = target;
+    document.getElementById("mapModal").style.display = "flex";
+    document.getElementById("mapPickerBtns").style.display = "grid";
+
+    const city = target === "pickup" ? document.getElementById("fromCity").value : document.getElementById("toCity").value;
+    const existing = target === "pickup" ? draftPickup : draftDropoff;
+    const baseCoords = existing ? [existing.lat, existing.lng] : (REGION_COORDS[city] || [40.1039, 65.3688]);
+
+    document.getElementById("mapModalTitle").textContent =
+      target === "pickup" ? "🟢 Yuk olib ketiladigan joyni belgilang" : "🔴 Yuk topshiriladigan joyni belgilang";
+    document.getElementById("mapModalSub").textContent =
+      "Xaritada kerakli ko‘cha yoki bino ustiga bosing";
+
+    if (ensureLeafletMap(baseCoords, existing ? 15 : 12)) {
+      if (mapSecondMarker) {
+        mapInstance.removeLayer(mapSecondMarker);
+        mapSecondMarker = null;
+      }
+      setModalPin(baseCoords[0], baseCoords[1]);
+    }
+  }
+
+  // Fetch protected contact & exact coordinates ONLY for authorized users
+  async function fetchLoadContact(loadId) {
+    if (loadContactsCache[loadId]) return loadContactsCache[loadId];
+    if (config.firebaseUrl) {
+      try {
+        const base = config.firebaseUrl.replace(/\/+$/, "");
+        const res = await fetch(`${base}/load_contacts/${loadId}.json`);
+        if (res.ok) {
+          const c = await res.json();
+          if (c) {
+            loadContactsCache[loadId] = c;
+            localStorage.setItem(KEYS.CONTACTS, JSON.stringify(loadContactsCache));
+            return c;
+          }
+        }
+      } catch (e) {}
+    }
+    return null;
+  }
+
+  async function openLoadMapViewer(loadId) {
+    const l = loadsList.find(x => x.id === loadId);
+    if (!l) return;
+
+    const myKey = userProfile ? phoneToKey(userProfile.phone) : "";
+    const isOwnerOfLoad = myKey && (l.senderKey === myKey || phoneToKey(l.senderPhone) === myKey);
+    const sub = getSubStatus(userProfile);
+
+    if (!isOwnerOfLoad && !sub.active) {
+      openSubLockModal(loadId);
+      return;
+    }
+
+    const contact = await fetchLoadContact(loadId) || l;
+    const p1 = contact.pickupLat && contact.pickupLng ? [contact.pickupLat, contact.pickupLng] : (REGION_COORDS[l.from] || [40.1039, 65.3688]);
+    const p2 = contact.dropoffLat && contact.dropoffLng ? [contact.dropoffLat, contact.dropoffLng] : (REGION_COORDS[l.to] || [41.2995, 69.2401]);
+
+    mapPickerTarget = "view";
+    document.getElementById("mapModal").style.display = "flex";
+    document.getElementById("mapPickerBtns").style.display = "none";
+    document.getElementById("mapModalTitle").textContent = `🗺 ${l.from} → ${l.to}`;
+    document.getElementById("mapModalSub").textContent = contact.landmark ? `Mo‘ljal: ${contact.landmark}` : "Yo‘nalish xaritasi";
+    document.getElementById("mapSelectedCoordsText").textContent =
+      `🟢 ${contact.pickupLabel || l.from}  →  🔴 ${contact.dropoffLabel || l.to}`;
+
+    if (ensureLeafletMap(p1, 12)) {
+      if (mapMarker) mapInstance.removeLayer(mapMarker);
+      if (mapSecondMarker) mapInstance.removeLayer(mapSecondMarker);
+
+      mapMarker = L.marker(p1).addTo(mapInstance).bindPopup(`🟢 Olib ketish: ${escapeHtml(contact.pickupLabel || l.from)}`).openPopup();
+      mapSecondMarker = L.marker(p2).addTo(mapInstance).bindPopup(`🔴 Topshirish: ${escapeHtml(contact.dropoffLabel || l.to)}`);
+
+      const bounds = L.latLngBounds([p1, p2]);
+      mapInstance.fitBounds(bounds, { padding: [45, 45] });
+    }
+  }
+
+  function useMyGpsInModal() {
+    if (!navigator.geolocation) {
+      toast("⚠️ GPS qo‘llab-quvvatlanmaydi");
+      return;
+    }
+    toast("📡 GPS aniqlanmoqda...");
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const lat = pos.coords.latitude;
+        const lng = pos.coords.longitude;
+        if (mapInstance) {
+          mapInstance.setView([lat, lng], 16);
+          setModalPin(lat, lng);
+        }
+      },
+      () => toast("⚠️ GPS ruxsat berilmadi"),
+      { enableHighAccuracy: true, timeout: 8000 }
+    );
+  }
+
+  async function confirmMapSelection() {
+    if (!tempPickedCoords) {
+      closeMapModal();
+      return;
+    }
+    const { lat, lng } = tempPickedCoords;
+    const target = mapPickerTarget;
+    const city = target === "pickup" ? document.getElementById("fromCity").value : document.getElementById("toCity").value;
+    closeMapModal();
+    const label = await reverseGeocodeLabel(lat, lng, city);
+
+    if (target === "pickup") {
+      draftPickup = { lat, lng, label };
+    } else if (target === "dropoff") {
+      draftDropoff = { lat, lng, label };
+    }
+    updateDraftLocationUI();
+    toast("✅ Manzil xaritadan saqlandi!");
+  }
+
+  function closeMapModal() {
+    document.getElementById("mapModal").style.display = "none";
+  }
+
+  function sortLoadsByMyLocation() {
+    if (!navigator.geolocation) {
+      toast("⚠️ Qurilmangizda GPS topilmadi");
+      return;
+    }
+    toast("📡 Sizga eng yaqin yuklar qidirilmoqda...");
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        driverCurrentCoords = {
+          lat: pos.coords.latitude,
+          lng: pos.coords.longitude
+        };
+        document.getElementById("driverLocationBanner").style.display = "block";
+        renderLoads();
+        toast("✅ Eng yaqin yuklar yuqoriga chiqarildi!");
+      },
+      () => {
+        toast("⚠️ GPS ruxsat berilmadi");
+      },
+      { enableHighAccuracy: true, timeout: 8000 }
+    );
+  }
+
+  function buildMapsNavUrl(lat, lng, cityFallback) {
+    if (lat && lng) {
+      return `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
+    }
+    const c = REGION_COORDS[cityFallback];
+    if (c) return `https://www.google.com/maps/dir/?api=1&destination=${c[0]},${c[1]}`;
+    return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(cityFallback + " Uzbekistan")}`;
+  }
+
+  function buildYandexUrl(lat, lng, cityFallback) {
+    const c = (lat && lng) ? [lat, lng] : (REGION_COORDS[cityFallback] || [40.1039, 65.3688]);
+    return `https://yandex.uz/maps/?pt=${c[1]},${c[0]}&z=15&l=map`;
+  }
+
+  // --- OWNER HIDDEN ADMIN ACCESS ---
+  let forceOpenAdmin = false;
+  function checkOwnerVisibility() {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("admin") === "1" || window.location.hash === "#admin") {
+      localStorage.setItem(KEYS.OWNER, "1");
+      forceOpenAdmin = true;
+      history.replaceState(null, "", window.location.pathname);
+    }
+    const isOwner = localStorage.getItem(KEYS.OWNER) === "1";
+    document.getElementById("nav-admin").style.display = isOwner ? "flex" : "none";
+  }
+
+  function hideAdminFromMenu() {
+    localStorage.removeItem(KEYS.OWNER);
+    adminUnlocked = false;
+    document.getElementById("nav-admin").style.display = "none";
+    switchTab("berish");
+    toast("Admin tugmasi yashirildi");
+  }
+
+  let logoTaps = 0;
+  let logoTimer = null;
+  document.getElementById("brandLogo").addEventListener("click", () => {
+    logoTaps++;
+    clearTimeout(logoTimer);
+    logoTimer = setTimeout(() => { logoTaps = 0; }, 5000);
+    if (logoTaps >= 5) {
+      logoTaps = 0;
+      localStorage.setItem(KEYS.OWNER, "1");
+      checkOwnerVisibility();
+      switchTab("admin");
+      toast("🔐 Admin bo‘limi ochildi");
+    }
+  });
+
+  // --- PRE-ENTRY REGISTRATION & SINGLE-DEVICE BINDING ---
+  function pickAuthRole(role) {
+    selectedAuthRole = role;
+    document.getElementById("optSender").classList.toggle("active", role === "sender");
+    document.getElementById("optDriver").classList.toggle("active", role === "driver");
+    document.getElementById("regCarWrap").style.display = role === "driver" ? "block" : "none";
+  }
+
+  function showAuthScreen(kickedMsg) {
+    const banner = document.getElementById("sessionKickedBanner");
+    if (kickedMsg) {
+      banner.textContent = kickedMsg;
+      banner.style.display = "block";
+    } else {
+      banner.style.display = "none";
+    }
+    document.getElementById("authDeviceLabelText").textContent = LOCAL_DEVICE_LABEL;
+    if (userProfile) {
+      document.getElementById("regName").value = userProfile.name || "";
+      document.getElementById("regPhone").value = userProfile.phone || "+998 ";
+      pickAuthRole(userProfile.role || "sender");
+    }
+    document.getElementById("authOverlay").style.display = "flex";
+  }
+
+  function logoutCurrentDevice() {
+    userProfile = null;
+    localSessionId = "";
+    revealedLoadIds = {};
+    localStorage.removeItem(KEYS.USER);
+    localStorage.removeItem(KEYS.SESSION_ID);
+    document.getElementById("userRoleBar").style.display = "none";
+    showAuthScreen("");
+  }
+
+  async function quickSwitchRole() {
+    if (!userProfile) {
+      showAuthScreen("");
+      return;
+    }
+    const nextRole = userProfile.role === "driver" ? "sender" : "driver";
+    selectedAuthRole = nextRole;
+    userProfile.role = nextRole;
+
+    // If switching to driver for the VERY FIRST TIME, start the 3-day free trial now!
+    if (nextRole === "driver" && !userProfile.trialStarted) {
+      await activateInitialTrialIfEligible(userProfile);
+    }
+
+    const pKey = phoneToKey(userProfile.phone);
+    userProfile.updatedAt = Date.now();
+    localStorage.setItem(KEYS.USER, JSON.stringify(userProfile));
+    usersMap[pKey] = userProfile;
+    localStorage.setItem(KEYS.USERS, JSON.stringify(usersMap));
+
+    if (config.firebaseUrl) {
+      const cleanUrl = config.firebaseUrl.replace(/\/+$/, "");
+      fetch(`${cleanUrl}/users/${pKey}.json`, {
+        method: "PATCH",
+        body: JSON.stringify({
+          role: userProfile.role,
+          trialStarted: userProfile.trialStarted,
+          subExpiresAt: userProfile.subExpiresAt,
+          subType: userProfile.subType,
+          updatedAt: userProfile.updatedAt
+        })
+      }).catch(() => {});
+    }
+
+    updateSubscriptionUI();
+    applyProfileToUI();
+    toast(nextRole === "driver" ? "🚚 Yuk oluvchi rejimiga o‘tildi" : "📦 Yuk beruvchi rejimiga o‘tildi");
+  }
+
+  async function checkDeviceTrialClaimed() {
+    if (localStorage.getItem(KEYS.TRIAL_USED) === "1") return true;
+    if (config.firebaseUrl) {
+      try {
+        const base = config.firebaseUrl.replace(/\/+$/, "");
+        const res = await fetch(`${base}/device_trials/${LOCAL_DEVICE_ID}.json`);
+        if (res.ok) {
+          const val = await res.json();
+          if (val) {
+            localStorage.setItem(KEYS.TRIAL_USED, "1");
+            return true;
+          }
+        }
+      } catch (e) {}
+    }
+    return false;
+  }
+
+  async function markDeviceTrialClaimed(pKey) {
+    localStorage.setItem(KEYS.TRIAL_USED, "1");
+    if (config.firebaseUrl) {
+      const base = config.firebaseUrl.replace(/\/+$/, "");
+      fetch(`${base}/device_trials/${LOCAL_DEVICE_ID}.json`, {
+        method: "PUT",
+        body: JSON.stringify({ phoneKey: pKey, claimedAt: Date.now(), deviceLabel: LOCAL_DEVICE_LABEL })
+      }).catch(() => {});
+    }
+  }
+
+  async function activateInitialTrialIfEligible(profileObj) {
+    const pKey = phoneToKey(profileObj.phone);
+    const alreadyClaimedOnDevice = await checkDeviceTrialClaimed();
+    profileObj.trialStarted = true;
+
+    if (alreadyClaimedOnDevice) {
+      profileObj.subExpiresAt = 0;
+      profileObj.subType = "device_trial_used";
+    } else {
+      profileObj.subExpiresAt = Date.now() + getTrialDays() * DAY_MS;
+      profileObj.subType = "trial";
+      await markDeviceTrialClaimed(pKey);
+    }
+  }
+
+  async function completeRegistration() {
+    const name = document.getElementById("regName").value.trim();
+    const phone = document.getElementById("regPhone").value.trim();
+    const car = document.getElementById("regCar").value;
+
+    const enteredHash = await sha256Hex(name.toLowerCase());
+    if (name.toLowerCase() === "admin7777" || enteredHash === config.pinHash) {
+      localStorage.setItem(KEYS.OWNER, "1");
+      document.getElementById("authOverlay").style.display = "none";
+      checkOwnerVisibility();
+      switchTab("admin");
+      unlockAdminDirect();
+      return;
+    }
+
+    if (name.length < 2) {
+      toast("⚠️ Iltimos, ismingizni kiriting!");
+      return;
+    }
+    const pKey = phoneToKey(phone);
+    if (pKey.length < 9) {
+      toast("⚠️ Telefon raqamingizni to‘liq kiriting!");
+      return;
+    }
+
+    let existingUser = null;
+    if (config.firebaseUrl) {
+      try {
+        const cleanUrl = config.firebaseUrl.replace(/\/+$/, "");
+        const res = await fetch(`${cleanUrl}/users/${pKey}.json`);
+        if (res.ok) {
+          const remoteUser = await res.json();
+          if (remoteUser && remoteUser.phone) {
+            existingUser = remoteUser;
+          }
+        }
+      } catch (e) {}
+    }
+
+    if (!existingUser && usersMap[pKey] && usersMap[pKey].phone) {
+      existingUser = usersMap[pKey];
+    }
+
+    // SINGLE-DEVICE CHECK: Is this account already bound to a DIFFERENT device?
+    if (existingUser && existingUser.boundDeviceId && existingUser.boundDeviceId !== LOCAL_DEVICE_ID) {
+      pendingTransferUser = {
+        pKey,
+        name,
+        phone,
+        role: selectedAuthRole,
+        car: selectedAuthRole === "driver" ? car : (existingUser.car || ""),
+        existingUser
+      };
+      openDeviceLockModal(pendingTransferUser);
+      return;
+    }
+
+    await finalizeUserLogin(pKey, name, phone, selectedAuthRole, car, existingUser, false);
+  }
+
+  function openDeviceLockModal(pending) {
+    const ex = pending.existingUser;
+    const switchCount = Number(ex.deviceSwitchCount || 0);
+    const canSelfTransfer = switchCount < 1;
+
+    document.getElementById("dLockAccountPhone").textContent = pending.phone;
+    document.getElementById("dLockBoundDevice").textContent = ex.boundDeviceLabel || "Boshqa telefon / brauzer";
+    document.getElementById("dLockTransferStatus").textContent = canSelfTransfer
+      ? "1 marta o‘tkazish ruxsati bor"
+      : "Limit tugagan (0 ta qoldi)";
+    document.getElementById("dLockTransferStatus").style.color = canSelfTransfer ? "#6ee7b7" : "#fca5a5";
+
+    document.getElementById("dLockLimitBlockedMsg").style.display = canSelfTransfer ? "none" : "block";
+    document.getElementById("dLockTransferBtns").style.display = canSelfTransfer ? "grid" : "none";
+    document.getElementById("dLockCloseOnlyWrap").style.display = canSelfTransfer ? "none" : "block";
+
+    document.getElementById("deviceLockModal").style.display = "flex";
+  }
+
+  function closeDeviceLockModal() {
+    pendingTransferUser = null;
+    document.getElementById("deviceLockModal").style.display = "none";
+  }
+
+  async function confirmDeviceTransfer() {
+    if (!pendingTransferUser) return;
+    const p = pendingTransferUser;
+    closeDeviceLockModal();
+    await finalizeUserLogin(p.pKey, p.name, p.phone, p.role, p.car, p.existingUser, true);
+    toast("✅ Akkaunt ushbu qurilmaga o‘tkazildi (eski qurilma bloklandi)!");
+  }
+
+  async function finalizeUserLogin(pKey, name, phone, role, car, existingUser, isDeviceTransfer) {
+    localSessionId = "SESS-" + Date.now() + "-" + Math.random().toString(36).substring(2, 8);
+    localStorage.setItem(KEYS.SESSION_ID, localSessionId);
+
+    const prevSwitches = existingUser ? Number(existingUser.deviceSwitchCount || 0) : 0;
+    const newSwitchCount = isDeviceTransfer ? (prevSwitches + 1) : prevSwitches;
+
+    const profileObj = {
+      name,
+      phone,
+      role,
+      car: role === "driver" ? car : (existingUser ? (existingUser.car || "") : ""),
+      trialStarted: existingUser ? Boolean(existingUser.trialStarted) : false,
+      subExpiresAt: existingUser ? Number(existingUser.subExpiresAt || 0) : 0,
+      subType: existingUser ? (existingUser.subType || "none") : "none",
+      boundDeviceId: LOCAL_DEVICE_ID,
+      boundDeviceLabel: LOCAL_DEVICE_LABEL,
+      activeSessionId: localSessionId,
+      deviceSwitchCount: newSwitchCount,
+      createdAt: existingUser ? (existingUser.createdAt || Date.now()) : Date.now(),
+      updatedAt: Date.now()
+    };
+
+    // Start 3-day free trial ONLY when entering Driver mode for the first time
+    if (role === "driver" && !profileObj.trialStarted) {
+      await activateInitialTrialIfEligible(profileObj);
+    }
+
+    userProfile = profileObj;
+    localStorage.setItem(KEYS.USER, JSON.stringify(userProfile));
+    usersMap[pKey] = userProfile;
+    localStorage.setItem(KEYS.USERS, JSON.stringify(usersMap));
+
+    document.getElementById("authOverlay").style.display = "none";
+    document.getElementById("sessionKickedBanner").style.display = "none";
+    updateSubscriptionUI();
+    applyProfileToUI();
+
+    if (config.firebaseUrl) {
+      const cleanUrl = config.firebaseUrl.replace(/\/+$/, "");
+      fetch(`${cleanUrl}/users/${pKey}.json`, {
+        method: "PUT",
+        body: JSON.stringify(userProfile)
+      }).catch(() => {});
+    }
+
+    const subInfo = getSubStatus(userProfile);
+    if (!existingUser || isDeviceTransfer) {
+      sendTelegramAlert(
+        (isDeviceTransfer ? `🔄 <b>QURILMA ALMASHTIRILDI!</b>\n` : `👤 <b>Yangi foydalanuvchi kirdi!</b>\n`) +
+        `Rol: ${userProfile.role === "driver" ? "🚚 Yuk oluvchi (" + userProfile.car + ")" : "📦 Yuk beruvchi"}\n` +
+        `Ism: ${userProfile.name}\n` +
+        `Tel: ${userProfile.phone}\n` +
+        `📱 Qurilma: ${LOCAL_DEVICE_LABEL}\n` +
+        `Holat: <b>${subInfo.statusTitle}</b>`
+      );
+    }
+  }
+
+  function applyProfileToUI() {
+    if (!userProfile) return;
+    const bar = document.getElementById("userRoleBar");
+    bar.style.display = "block";
+    document.getElementById("userRoleLabel").textContent =
+      userProfile.role === "driver"
+        ? `🚚 Yuk oluvchi (${userProfile.car}) • ${userProfile.name}`
+        : `📦 Yuk beruvchi • ${userProfile.name}`;
+
+    document.getElementById("senderName").value = userProfile.name;
+    document.getElementById("senderPhone").value = userProfile.phone;
+
+    switchTab(userProfile.role === "driver" ? "topish" : "berish");
+  }
+
+  // --- NAVIGATION ---
+  function switchTab(tabName) {
+    document.querySelectorAll(".tab-page").forEach(p => p.classList.remove("active"));
+    document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
+
+    const page = document.getElementById("page-" + tabName);
+    const nav = document.getElementById("nav-" + tabName);
+    if (page) page.classList.add("active");
+    if (nav) nav.classList.add("active");
+
+    if (tabName === "topish") renderLoads();
+    if (tabName === "buyurtma") renderMyOrders();
+    if (tabName === "obuna") {
+      updateSubscriptionUI();
+      renderMyTopups();
+    }
+    if (tabName === "admin" && adminUnlocked) renderAdminDashboard();
+  }
+
+  // --- FIREBASE & REAL-TIME SINGLE-DEVICE ENFORCEMENT ---
+  function setLiveStatus(isLive) {
+    const pill = document.getElementById("dbStatusPill");
+    const txt = document.getElementById("dbStatusText");
+    pill.classList.toggle("live", isLive);
+    txt.textContent = isLive ? "Jonli baza" : "Lokal rejim";
+  }
+
+  async function autoDetectFirebase() {
+    if (config.firebaseUrl) {
+      await syncFromFirebase();
+      return;
+    }
+    const candidates = [
+      DEFAULT_FIREBASE_URL,
+      "https://yolakay-yuk-default-rtdb.firebaseio.com"
+    ];
+    for (const url of candidates) {
+      try {
+        const res = await fetch(`${url}/.json`);
+        if (res.ok) {
+          config.firebaseUrl = url;
+          localStorage.setItem(KEYS.CFG, JSON.stringify(config));
+          await syncFromFirebase();
+          return;
+        }
+      } catch (e) {}
+    }
+    setLiveStatus(false);
+  }
+
+  async function syncFromFirebase() {
+    if (!config.firebaseUrl) {
+      setLiveStatus(false);
+      renderLoads();
+      return;
+    }
+    const base = config.firebaseUrl.replace(/\/+$/, "");
+    try {
+      // Fetch public nodes ONLY (do NOT fetch /load_contacts globally!)
+      const [loadsRes, usersRes, topupsRes, settingsRes] = await Promise.all([
+        fetch(`${base}/loads.json`),
+        fetch(`${base}/users.json`),
+        fetch(`${base}/topups.json`),
+        fetch(`${base}/settings.json`)
+      ]);
+
+      if (!loadsRes.ok) throw new Error("DB error");
+      setLiveStatus(true);
+
+      const loadsData = await loadsRes.json();
+      if (loadsData) {
+        loadsList = Object.values(loadsData).sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+        localStorage.setItem(KEYS.LOADS, JSON.stringify(loadsList));
+      }
+
+      const usersData = usersRes.ok ? await usersRes.json() : null;
+      if (usersData) {
+        usersMap = usersData;
+        localStorage.setItem(KEYS.USERS, JSON.stringify(usersMap));
+
+        if (userProfile) {
+          const pKey = phoneToKey(userProfile.phone);
+          const remoteMe = usersMap[pKey];
+          if (remoteMe) {
+            // REAL-TIME SINGLE-DEVICE CHECK: Kick out immediately if another device took the session!
+            if (
+              (remoteMe.boundDeviceId && remoteMe.boundDeviceId !== LOCAL_DEVICE_ID) ||
+              (remoteMe.activeSessionId && localSessionId && remoteMe.activeSessionId !== localSessionId)
+            ) {
+              userProfile = null;
+              localSessionId = "";
+              revealedLoadIds = {};
+              localStorage.removeItem(KEYS.USER);
+              localStorage.removeItem(KEYS.SESSION_ID);
+              document.getElementById("userRoleBar").style.display = "none";
+              showAuthScreen(
+                `🔒 Ushbu akkauntga boshqa qurilmadan (${remoteMe.boundDeviceLabel || "yangi qurilma"}) kirildi! Bitta akkauntdan bir vaqtda faqat 1 ta qurilma foydalana oladi.`
+              );
+              return;
+            }
+
+            // Sync subscription status from server
+            userProfile.subExpiresAt = Number(remoteMe.subExpiresAt || 0);
+            userProfile.subType = remoteMe.subType || userProfile.subType;
+            userProfile.trialStarted = Boolean(remoteMe.trialStarted);
+            userProfile.deviceSwitchCount = Number(remoteMe.deviceSwitchCount || 0);
+            localStorage.setItem(KEYS.USER, JSON.stringify(userProfile));
+            updateSubscriptionUI();
+          }
+        }
+      }
+
+      const topupsData = topupsRes.ok ? await topupsRes.json() : null;
+      if (topupsData) {
+        topupsList = Object.values(topupsData).sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+        localStorage.setItem(KEYS.TOPUPS, JSON.stringify(topupsList));
+      }
+
+      const settingsData = settingsRes.ok ? await settingsRes.json() : null;
+      if (settingsData) {
+        if (settingsData.card) config.card = settingsData.card;
+        if (typeof settingsData.trialDays === "number") config.trialDays = settingsData.trialDays;
+        if (typeof settingsData.monthlyPrice === "number") config.monthlyPrice = settingsData.monthlyPrice;
+        if (typeof settingsData.subDays === "number") config.subDays = settingsData.subDays;
+        if (typeof settingsData.loadExpireHours === "number") config.loadExpireHours = settingsData.loadExpireHours;
+        if (settingsData.botToken && !config.botToken) config.botToken = settingsData.botToken;
+        if (settingsData.chatId && !config.chatId) config.chatId = settingsData.chatId;
+        localStorage.setItem(KEYS.CFG, JSON.stringify(config));
+        updateSubscriptionUI();
+      }
+
+      const pendingCount = topupsList.filter(t => t.status === "pending").length;
+      const dot = document.getElementById("adminTopupDot");
+      if (pendingCount > 0) {
+        dot.style.display = "inline-block";
+        dot.textContent = pendingCount;
+      } else {
+        dot.style.display = "none";
+      }
+
+      renderLoads();
+      renderMyOrders();
+      renderMyTopups();
+      if (adminUnlocked) renderAdminDashboard();
+    } catch (e) {
+      setLiveStatus(false);
+    }
+  }
+
+  function sendTelegramAlert(htmlText) {
+    if (!config.botToken || !config.chatId) return;
+    fetch(`https://api.telegram.org/bot${config.botToken}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: config.chatId,
+        text: htmlText,
+        parse_mode: "HTML"
+      })
+    }).catch(() => {});
+  }
+
+  async function sendTelegramPhoto(base64DataUrl, captionHtml) {
+    if (!config.botToken || !config.chatId || !base64DataUrl) {
+      sendTelegramAlert(captionHtml);
+      return;
+    }
+    try {
+      const res = await fetch(base64DataUrl);
+      const blob = await res.blob();
+      const fd = new FormData();
+      fd.append("chat_id", config.chatId);
+      fd.append("photo", blob, "chek.jpg");
+      fd.append("caption", captionHtml);
+      fd.append("parse_mode", "HTML");
+      await fetch(`https://api.telegram.org/bot${config.botToken}/sendPhoto`, {
+        method: "POST",
+        body: fd
+      });
+    } catch (e) {
+      sendTelegramAlert(captionHtml);
+    }
+  }
+
+  // --- PUBLISH CARGO (SPLIT PUBLIC PREVIEW vs PROTECTED CONTACT) ---
+  async function publishCargo() {
+    const from = document.getElementById("fromCity").value;
+    const to = document.getElementById("toCity").value;
+    const landmark = document.getElementById("landmarkNote").value.trim();
+    const desc = document.getElementById("cargoDesc").value.trim();
+    const price = Number(document.getElementById("cargoPrice").value);
+    const vehicle = document.getElementById("cargoVehicle").value;
+    const senderName = document.getElementById("senderName").value.trim();
+    const senderPhone = document.getElementById("senderPhone").value.trim();
+
+    if (from === to && !draftPickup && !draftDropoff && !landmark) {
+      toast("⚠️ Shahar ichidagi yuk uchun aniq lokatsiya yoki mo‘ljal yozing!");
+      return;
+    }
+    if (!desc || !price || !senderName || !senderPhone) {
+      toast("⚠️ Barcha majburiy maydonlarni to‘ldiring!");
+      return;
+    }
+
+    const p1 = draftPickup ? [draftPickup.lat, draftPickup.lng] : (REGION_COORDS[from] || [40.1039, 65.3688]);
+    const p2 = draftDropoff ? [draftDropoff.lat, draftDropoff.lng] : (REGION_COORDS[to] || [41.2995, 69.2401]);
+    const distanceKm = updateRouteEstimate();
+    const now = Date.now();
+    const loadId = "load_" + now;
+    const sKey = phoneToKey(senderPhone);
+
+    // 1. Public load summary (NO phone number, NO exact street/GPS exposed publicly!)
+    const publicLoad = {
+      id: loadId,
+      from,
+      to,
+      distanceKm,
+      desc,
+      price,
+      vehicle,
+      senderFirstName: senderName.split(" ")[0],
+      senderKey: sKey,
+      status: "open",
+      viewsCount: 0,
+      createdAt: now,
+      expiresAt: now + getLoadExpireHours() * HOUR_MS
+    };
+
+    // 2. Protected contact & exact map node (fetched ONLY by active subscribers or load creator)
+    const protectedContact = {
+      pickupLat: p1[0],
+      pickupLng: p1[1],
+      pickupLabel: draftPickup ? draftPickup.label : from,
+      dropoffLat: p2[0],
+      dropoffLng: p2[1],
+      dropoffLabel: draftDropoff ? draftDropoff.label : to,
+      landmark,
+      senderName,
+      senderPhone
+    };
+
+    loadsList.unshift(publicLoad);
+    localStorage.setItem(KEYS.LOADS, JSON.stringify(loadsList));
+
+    loadContactsCache[loadId] = protectedContact;
+    localStorage.setItem(KEYS.CONTACTS, JSON.stringify(loadContactsCache));
+
+    if (config.firebaseUrl) {
+      const base = config.firebaseUrl.replace(/\/+$/, "");
+      await Promise.all([
+        fetch(`${base}/loads/${loadId}.json`, {
+          method: "PUT",
+          body: JSON.stringify(publicLoad)
+        }),
+        fetch(`${base}/load_contacts/${loadId}.json`, {
+          method: "PUT",
+          body: JSON.stringify(protectedContact)
+        })
+      ]).catch(() => {});
+    }
+
+    const mapLink = `https://www.google.com/maps?q=${protectedContact.pickupLat},${protectedContact.pickupLng}`;
+    sendTelegramAlert(
+      `📦 <b>YANGI YUK E’LONI!</b>\n` +
+      `Yo‘nalish: <b>${from} → ${to}</b> (~${distanceKm} km)\n` +
+      `📍 Olib ketish: ${protectedContact.pickupLabel}\n` +
+      `🏁 Topshirish: ${protectedContact.dropoffLabel}\n` +
+      (landmark ? `🧭 Mo‘ljal: ${landmark}\n` : "") +
+      `Yuk: ${desc}\n` +
+      `Narx: <b>${formatSom(price)}</b>\n` +
+      `Transport: ${vehicle}\n` +
+      `Mijoz: ${senderName} (${senderPhone})\n` +
+      `🗺 <a href="${mapLink}">Lokatsiyani xaritada ochish</a>`
+    );
+
+    document.getElementById("cargoDesc").value = "";
+    document.getElementById("cargoPrice").value = "";
+    document.getElementById("landmarkNote").value = "";
+    draftPickup = null;
+    draftDropoff = null;
+    updateDraftLocationUI();
+
+    toast("✅ Yukingiz bepul joylandi!");
+    switchTab("buyurtma");
+  }
+
+  // --- SUBSCRIPTION LOCK MODAL ---
+  function openSubLockModal(loadId) {
+    const load = loadsList.find(x => x.id === loadId);
+    const mPrice = getMonthlyPrice();
+    const sDays = getSubDays();
+
+    if (load) {
+      document.getElementById("sModalRoute").textContent = `${load.from} → ${load.to}`;
+      document.getElementById("sModalLoadPrice").textContent = formatSom(load.price);
+    }
+    document.getElementById("sModalSubPrice").textContent = `${formatSom(mPrice)} / ${sDays} kun`;
+    document.getElementById("subLockModal").style.display = "flex";
+  }
+
+  function closeSubLockModal() {
+    document.ge
